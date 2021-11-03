@@ -1,4 +1,3 @@
-from constants import *
 import names
 
 from supporting_methods import *
