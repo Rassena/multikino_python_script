@@ -46,7 +46,7 @@ class AddableToDatabase:
         keys, values = '', ''
         if len(self.__dict__) > 0:
             keys = ', '.join(self.__dict__.keys())
-            values = ', '.join([str(val) for val in self.__dict__.values()])
+            values = ', '.join([f'%({key})s' for key in self.__dict__.keys()])
         return f'INSERT INTO {self.__class__.__name__} ({keys}) VALUES ({values})'
 
 
