@@ -25,14 +25,12 @@ def random_date_generator() -> date:
     return random_date
 
 
-def random_time_generator() -> time:
-    h = random.randrange(1, 23)
-    m = random.randrange(0, 59, step=10)
-    # print(h, ":", m, sep="")
+def random_time_generator(hour_start: int = DEFAULT_HOUR_START, hour_end: int = DEFAULT_HOUR_END,
+                          min_start: int = DEFAULT_MINUTE_START, min_end: int = DEFAULT_MINUTE_END) -> time:
+    h = random.randrange(hour_start, hour_end)
+    m = random.randrange(min_start, min_end, step=10)
     to_str = str(h) + ":" + str(m)
     t = datetime.strptime(to_str, "%H:%M")
-    # print(t.time())
-    # print(t.strftime("%H:%M"))
     return t.time()
 
 
