@@ -1,7 +1,7 @@
-from all_tables import AllTables
+from all_tables import AllMultikinoEntities
 
 if __name__ == '__main__':
-    tabs = AllTables()
+    tabs = AllMultikinoEntities()
     with open('document.txt', 'w') as f:
         for x in tabs.all_entities:
             add_element, data_element = x.sql_addable, x.__dict__

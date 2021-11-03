@@ -1,5 +1,5 @@
 import mysql.connector
-from all_tables import AllTables
+from all_tables import AllMultikinoEntities
 from supporting_methods import AddableToDatabase
 
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     for x in conn.mycursor:
         print(x)
 
-    all_tables = AllTables().all_entities
+    all_tables = AllMultikinoEntities().all_entities
     for element in all_tables:
         print(element)
         conn.add_addable_element(element)

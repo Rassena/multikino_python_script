@@ -2,7 +2,7 @@ from constants import *
 from tables import *
 
 
-class AllTables:
+class AllMultikinoEntities:
     def __init__(self):
         tab_with_all_tabs = [[] for i in range(NUMBER_OF_ALL_ENTITIES)]
         ageRestrictions_inx, rooms_inx, reservationStates_inx, roles_inx, translations_inx, \
