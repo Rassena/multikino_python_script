@@ -19,8 +19,8 @@ class AllMultikinoEntities:
         artists: list[Artist] = tab_with_all_tabs[artists_inx]
         users: list[User] = tab_with_all_tabs[users_inx]
 
-        workers = users[:500]
-        clients = users[500:]
+        workers = users[:WORKERS_NUM]
+        clients = users[WORKERS_NUM:]
 
         # Entities with no fks____________________________________________________________________________
         tab_with_all_tabs[ageRestrictions_inx] = [AgeRestriction(str_val) for str_val in AGE_RESTRICTIONS]
@@ -50,7 +50,7 @@ class AllMultikinoEntities:
         # Entities with one fk________________________________________________________________________________
         tab_with_all_tabs[movies_inx] = [Movie(random.choice(ageRestrictions).Id_ageRestriction)
                                          for i in range(MOVIE_NUM)]
-        tab_with_all_tabs[seats_inx] = [Seat(room.Id_room) for room in rooms for i in range(45)]
+        tab_with_all_tabs[seats_inx] = [Seat(room.Id_room) for room in rooms for i in range(15*15)]
 
         movies: list[Movie] = tab_with_all_tabs[movies_inx]
         seats: list[Seat] = tab_with_all_tabs[seats_inx]
@@ -102,5 +102,6 @@ class AllMultikinoEntities:
                                           for reservation in reservations
                                           for seat in random.choices(seats, k=random.randrange(1, 5))]
         self.all_entities = []
+        self.tab_with_all_tabs = tab_with_all_tabs
         for x in tab_with_all_tabs:
             self.all_entities += x

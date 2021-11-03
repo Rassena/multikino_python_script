@@ -33,6 +33,7 @@ COUNTRIES = [
     "Czech Republic"
 ]
 USER_NUM = 2500
+WORKERS_NUM = 500
 MOVIE_NUM = 300
 
 TICKET = 3000

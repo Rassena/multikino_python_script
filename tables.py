@@ -41,7 +41,7 @@ class Artist(ObjectWithCounter, AddableToDatabase):
         gender_id = random.choice([False, True])
         self.Artist_name: str = names.get_first_name(gender=self.genders[gender_id])
         self.Artist_surname: str = names.get_last_name()
-        self.Artist_birth: date = random_date_generator()
+        self.Artist_birth: date = random_date_generator(1960, 2000)
         self.Artist_gender: bool = gender_id
 
 
@@ -55,7 +55,7 @@ class User(ObjectWithCounter, AddableToDatabase):
         self.User_surname: str = names.get_last_name()
         self.User_email: str = f'{random_string_generator(random.randrange(6, 12))}@gmail.com'
         self.User_password: str = random_string_generator(random.randrange(8, 12))
-        self.User_birth: date = random_date_generator()
+        self.User_birth: date = random_date_generator(1970, 2003)
 
 
 class Seat(ObjectWithCounter, AddableToDatabase):
@@ -82,9 +82,8 @@ class Movie(ObjectWithCounter, AddableToDatabase):
 
         self.Movie_name: str = f'Movie name {random_string_generator(5)}'
         self.Movie_description: str = random_string_generator(100)
-        self.Movie_premiere: date = random_date_generator()
-        self.Movie_duration: int = random.randrange(90, 200)
-        #:Movie_duration > 0)
+        self.Movie_premiere: date = random_date_generator(2000, 2022)
+        self.Movie_duration: int = random.randrange(90, 200) #:Movie_duration > 0)
         self.Fk_ageRestriction: int = fk_age_restriction
 
 
@@ -187,7 +186,7 @@ class Seans(ObjectWithCounter, AddableToDatabase):
         self.Id_seans: int = Seans.next()
         self.Fk_room = fk_room
         self.Fk_movieVersion = fk_movieVersion
-        self.Seans_date = random_date_generator()
+        self.Seans_date = random_date_generator(2021, 2022)
         self.Seans_time = random_time_generator()
 
 
