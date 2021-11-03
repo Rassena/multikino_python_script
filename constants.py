@@ -1,3 +1,5 @@
+NUMBER_OF_ALL_ENTITIES = 26
+
 AGE_RESTRICTIONS = ['7+', '13+', '16+', '18+']# od 7, 13, 16, 18
 ARTIST_NUM = 150
 

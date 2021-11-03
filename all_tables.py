@@ -4,54 +4,103 @@ from tables import *
 
 class AllTables:
     def __init__(self):
-        ageRestrictions = [AgeRestriction(str_val) for str_val in AGE_RESTRICTIONS]
-        rooms = [Room(str_val) for str_val in ROOMS]
-        roles = [Role(str_val) for str_val in ROLES]
-        artists = [Artist() for i in range(ARTIST_NUM)]
-        reservationStates = [ReservationState(str_val) for str_val in RESERVATION_STATES]
-        translations = [Translation(str_val) for str_val in TRANSLATIONS]
-        users = [User() for i in range(USER_NUM)]
-        seats = [Seat(room.Id_room) for room in rooms for i in range(45)]
-        countries = [Country(str_val) for str_val in COUNTRIES]
-        dimensions = [Dimension(str_val) for str_val in DIMENSIONS]
-        discounts = [Discount(float_val) for float_val in DISCOUNTS]
-        genres = [Genre(str_val) for str_val in CATEGORIES]
-        movies = [Movie(random.choice(ageRestrictions).Id_ageRestriction) for i in range(MOVIE_NUM)]
-        castAssigments = [CastAssignment(artist.Id_artist, movie.Id_movie, random.choice(roles).Id_role)
-                          for movie in movies
-                          for artist in random.choices(artists, k=len(roles))]
-        movieVersions = [MovieVersion(translation.Id_translation, dimension.Id_dimension)
-                         for translation in translations
-                         for dimension in dimensions]
-        movie_countries = [Movie_Country(movie.Id_movie, country.Id_country)
-                           for movie in movies
-                           for country in random.choices(countries, k=random.randrange(1, 3))]
-        movie_genres = [Movie_Genre(movie.Id_movie, genre.Id_genre)
-                        for movie in movies
-                        for genre in random.choices(genres, k=random.randrange(2, 5))]
-        movie_movieVersions = [Movie_MovieVersion(movie.Id_movie, movieVersion.Id_movieVersion)
-                               for movie in movies
-                               for movieVersion in random.choices(movieVersions, k=random.randrange(1, 4))]
-        posters = [Poster(movie.Id_movie) for movie in movies]
-        prices = [Price(float_val) for float_val in PRICES]
-        privileges = [Privilege(str_val) for str_val in PRIVILAGES]
+        tab_with_all_tabs = [[] for i in range(NUMBER_OF_ALL_ENTITIES)]
+        ageRestrictions_inx, rooms_inx, reservationStates_inx, roles_inx, translations_inx, \
+        artists_inx, users_inx, seats_inx, movies_inx, castAssigments_inx, countries_inx, \
+        dimensions_inx, discounts_inx, genres_inx, movieVersions_inx, movie_countries_inx, \
+        movie_genres_inx, movie_movieVersions_inx, posters_inx, prices_inx, privileges_inx, \
+        privilegeAssignments_inx, raitings_inx, seanses_inx, reservations_inx, tickets_inx \
+            = range(NUMBER_OF_ALL_ENTITIES)
+
+        # Entities with no attributes_____________________________________________________________________
+        tab_with_all_tabs[artists_inx] = [Artist() for i in range(ARTIST_NUM)]
+        tab_with_all_tabs[users_inx] = [User() for i in range(USER_NUM)]
+
+        artists: list[Artist] = tab_with_all_tabs[artists_inx]
+        users: list[User] = tab_with_all_tabs[users_inx]
+
         workers = users[:500]
         clients = users[500:]
-        privilegeAssignments = [PrivilegeAssignment(user.Id_user, privilege.Id_privilege)
-                                for user in workers
-                                for privilege in random.choices(privileges[2:], k=random.randrange(1, 3))] + \
-                               [PrivilegeAssignment(user.Id_user, random.choice(privileges[:2]).Id_privilege)
-                                for user in clients]
-        raitings = [Rating(movie.Id_movie, user.Id_user)
-                    for user in random.choices(clients, k=len(clients) // 3)
-                    for movie in random.choices(movies, k=random.randrange(1, 8))]
-        seanses = [Seans(room.Id_room, movieVersion.Id_movieVersion)
-                   for room in rooms
-                   for movieVersion in random.choices(movieVersions, k=len(movie_movieVersions) // 3)]
-        reservations = [Reservation(seans.Id_seans, random.choice(reservationStates).Id_reservationState, user.Id_user)
-                        for user in clients
-                        for seans in random.choices(seanses, k=random.randrange(1, 5))]
-        self.all_tables = ageRestrictions + rooms + roles + artists + reservationStates + translations + users + seats + \
-                          countries + dimensions + discounts + genres + movies + castAssigments + movieVersions + \
-                          movie_countries + movie_genres + movie_movieVersions + posters + prices + privileges + \
-                          privilegeAssignments + raitings + seanses + reservations
+
+        # Entities with no fks____________________________________________________________________________
+        tab_with_all_tabs[ageRestrictions_inx] = [AgeRestriction(str_val) for str_val in AGE_RESTRICTIONS]
+        tab_with_all_tabs[rooms_inx] = [Room(str_val) for str_val in ROOMS]
+        tab_with_all_tabs[roles_inx] = [Role(str_val) for str_val in ROLES]
+        tab_with_all_tabs[reservationStates_inx] = [ReservationState(str_val) for str_val in RESERVATION_STATES]
+        tab_with_all_tabs[translations_inx] = [Translation(str_val) for str_val in TRANSLATIONS]
+        tab_with_all_tabs[dimensions_inx] = [Dimension(str_val) for str_val in DIMENSIONS]
+        tab_with_all_tabs[genres_inx] = [Genre(str_val) for str_val in CATEGORIES]
+        tab_with_all_tabs[countries_inx] = [Country(str_val) for str_val in COUNTRIES]
+        tab_with_all_tabs[privileges_inx] = [Privilege(str_val) for str_val in PRIVILAGES]
+        tab_with_all_tabs[discounts_inx] = [Discount(float_val) for float_val in DISCOUNTS]
+        tab_with_all_tabs[prices_inx] = [Price(float_val) for float_val in PRICES]
+
+        ageRestrictions: list[AgeRestriction] = tab_with_all_tabs[ageRestrictions_inx]
+        rooms: list[Room] = tab_with_all_tabs[rooms_inx]
+        roles: list[Role] = tab_with_all_tabs[roles_inx]
+        reservationStates: list[ReservationState] = tab_with_all_tabs[reservationStates_inx]
+        translations: list[Translation] = tab_with_all_tabs[translations_inx]
+        dimensions: list[Dimension] = tab_with_all_tabs[dimensions_inx]
+        genres: list[Genre] = tab_with_all_tabs[genres_inx]
+        countries: list[Country] = tab_with_all_tabs[countries_inx]
+        privileges: list[Privilege] = tab_with_all_tabs[privileges_inx]
+        discounts: list[Discount] = tab_with_all_tabs[discounts_inx]
+        prices: list[Price] = tab_with_all_tabs[prices_inx]
+
+        # Entities with one fk________________________________________________________________________________
+        tab_with_all_tabs[seats_inx] = [Seat(room.Id_room) for room in rooms for i in range(45)]
+        seats: list[Seat] = tab_with_all_tabs[seats_inx]
+
+        tab_with_all_tabs[movies_inx] = [Movie(random.choice(ageRestrictions).Id_ageRestriction)
+                                         for i in range(MOVIE_NUM)]
+        movies: list[Movie] = tab_with_all_tabs[movies_inx]
+        tab_with_all_tabs[posters_inx] = [Poster(movie.Id_movie) for movie in movies]
+        # posters: list[Poster] = tab_with_all_tabs[posters_inx]
+
+        # Entities with two fks_______________________________________________________________________________
+        tab_with_all_tabs[movie_countries_inx] = [Movie_Country(movie.Id_movie, country.Id_country)
+                                                  for movie in movies
+                                                  for country in random.choices(countries, k=random.randrange(1, 3))]
+        tab_with_all_tabs[movie_genres_inx] = [Movie_Genre(movie.Id_movie, genre.Id_genre)
+                                               for movie in movies
+                                               for genre in random.choices(genres, k=random.randrange(2, 5))]
+        tab_with_all_tabs[privilegeAssignments_inx] = [PrivilegeAssignment(user.Id_user, privilege.Id_privilege)
+                                                       for user in workers
+                                                       for privilege in random.choices(privileges[2:], k=random.randrange(1, 3))] + \
+                                                      [PrivilegeAssignment(user.Id_user, random.choice(privileges[:2]).Id_privilege)
+                                                       for user in clients]
+        tab_with_all_tabs[raitings_inx] = [Rating(movie.Id_movie, user.Id_user)
+                                           for user in random.choices(clients, k=len(clients) // 3)
+                                           for movie in random.choices(movies, k=random.randrange(1, 8))]
+
+        tab_with_all_tabs[movieVersions_inx] = [MovieVersion(translation.Id_translation, dimension.Id_dimension)
+                                                for translation in translations
+                                                for dimension in dimensions]
+        movieVersions: list[MovieVersion] = tab_with_all_tabs[movieVersions_inx]
+
+        tab_with_all_tabs[movie_movieVersions_inx] = [Movie_MovieVersion(movie.Id_movie, movieVersion.Id_movieVersion)
+                               for movie in movies
+                               for movieVersion in random.choices(movieVersions, k=random.randrange(1, 4))]
+        movie_movieVersions: list[Movie_MovieVersion] = tab_with_all_tabs[movie_movieVersions_inx]
+
+        tab_with_all_tabs[seanses_inx] = [Seans(room.Id_room, movieVersion.Id_movieVersion)
+                                          for room in rooms
+                                          for movieVersion in random.choices(movieVersions, k=len(movie_movieVersions) // 3)]
+        seanses: list[Seans] = tab_with_all_tabs[seanses_inx]
+
+        # Entities with three+ fks______________________________________________________________________________
+        tab_with_all_tabs[castAssigments_inx] = [CastAssignment(artist.Id_artist, movie.Id_movie, random.choice(roles).Id_role)
+                                                 for movie in movies
+                                                 for artist in random.choices(artists, k=len(roles))]
+
+        tab_with_all_tabs[reservations_inx] = [Reservation(seans.Id_seans, random.choice(reservationStates).Id_reservationState, user.Id_user)
+                                               for user in clients
+                                               for seans in random.choices(seanses, k=random.randrange(1, 5))]
+        reservations: list[Reservation] = tab_with_all_tabs[reservations_inx]
+        tab_with_all_tabs[tickets_inx] = [Ticket(seat.Id_seat, reservation.Id_reservation,
+                                                 random.choice(discounts).Id_discount, random.choice(prices).Id_price)
+                                          for reservation in reservations
+                                          for seat in random.choices(seats, k=random.randrange(1, 5))]
+        self.all_entities = []
+        for x in tab_with_all_tabs:
+            self.all_entities += x

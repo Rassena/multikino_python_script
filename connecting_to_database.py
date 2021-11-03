@@ -32,7 +32,7 @@ if __name__ == "__main__":
     for x in conn.mycursor:
         print(x)
 
-    all_tables = AllTables().all_tables
+    all_tables = AllTables().all_entities
     for element in all_tables:
         print(element)
         conn.add_addable_element(element)
