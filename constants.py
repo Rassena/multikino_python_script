@@ -60,3 +60,13 @@ CATEGORIES = ["Akcji", "Biograficzne", "Dla dzieci", "Dokumentalne", "Dramaty", 
               "Historyczne", "Horror", "Komedie", "Komedie", "romantyczne", "Kryminalne", "Muzyczne", "Młodzieżowe",
               "Nagradzane", "Obyczajowe", "Polskie", "Przygodowe", "Psychologiczne", "Romanse", "Sci-fi", "Sensacyjne",
               "Sztuki walki", "Thrillery", "Western", "Wojenne"]
+
+MAX_SEAT_IN_ROW = 15
+
+DEFAULT_YEAR_START = 1920
+DEFAULT_YEAR_END = 2021
+
+DEFAULT_HOUR_START = 9
+DEFAULT_HOUR_END = 22
+DEFAULT_MINUTE_START = 0
+DEFAULT_MINUTE_END = 59

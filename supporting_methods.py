@@ -2,6 +2,8 @@ import random
 import string
 from datetime import date, timedelta, time, datetime
 
+from constants import *
+
 
 def random_string_generator(length) -> str:
     rand_signs = string.ascii_letters + string.digits
@@ -13,9 +15,9 @@ def random_lowercase(length) -> str:
     return ''.join([random.choice(rand_signs) for i in range(length)])
 
 
-def random_date_generator() -> date:
-    start_date = date(2021, 1, 1)
-    end_date = date(2022, 1, 1)
+def random_date_generator(year_start: int = DEFAULT_YEAR_START, year_end: int = DEFAULT_YEAR_END) -> date:
+    start_date = date(year_start, 1, 1)
+    end_date = date(year_end, 1, 1)
 
     time_between_dates = end_date - start_date
     days_between_dates = time_between_dates.days
@@ -35,7 +37,7 @@ def random_time_generator(hour_start: int = DEFAULT_HOUR_START, hour_end: int = 
 
 
 class ObjectWithCounter:
-    counter = 0
+    counter = 1
 
     @classmethod
     def next(cls):
