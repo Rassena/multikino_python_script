@@ -152,7 +152,7 @@ class Poster(ObjectWithCounter, AddableToDatabase):
     def __init__(self, fk_movie: int):
         self.Id_poster: int = Poster.next()
         self.Fk_movie = fk_movie
-        self.Poster_path = f'C:\posters\{self.Fk_movie}\{random_string_generator(4)}.tiff'
+        self.Poster_path = f'C:\\posters\\{self.Fk_movie}\\{random_string_generator(4)}.tiff'
 
 
 class Price(ObjectWithCounter, AddableToDatabase):
@@ -188,6 +188,7 @@ class Seans(ObjectWithCounter, AddableToDatabase):
         self.Fk_room = fk_room
         self.Fk_movieVersion = fk_movieVersion
         self.Seans_date = random_date_generator()
+        self.Seans_time = random_time_generator()
 
 
 class Reservation(ObjectWithCounter, AddableToDatabase):
