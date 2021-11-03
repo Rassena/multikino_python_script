@@ -35,5 +35,7 @@ if __name__ == "__main__":
     for x in conn.mycursor:
         print(x)
 
-    conn.add_users(users)
-    conn.add_artists(artists)
+    all_tables = AllTables().all_tables
+    for element in all_tables:
+        print(element)
+        conn.add_addable_element(element)
