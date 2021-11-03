@@ -1,6 +1,6 @@
 import random
 import string
-from datetime import date, timedelta, time
+from datetime import date, timedelta, time, datetime
 
 
 def random_string_generator(length) -> str:
@@ -26,7 +26,14 @@ def random_date_generator() -> date:
 
 
 def random_time_generator() -> time:
-    pass
+    h = random.randrange(1, 23)
+    m = random.randrange(0, 59, step=10)
+    # print(h, ":", m, sep="")
+    to_str = str(h) + ":" + str(m)
+    t = datetime.strptime(to_str, "%H:%M")
+    # print(t.time())
+    # print(t.strftime("%H:%M"))
+    return t.time()
 
 
 class ObjectWithCounter:
