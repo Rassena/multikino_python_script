@@ -3,12 +3,9 @@ from all_tables import AllTables
 from supporting_methods import AddableToDatabase
 
 
-class Connection():
-    mycursor = None
-    mydb = None
-
-    def __init__(self):
-        self.mydb = mysql.connector.connect(host="25.89.241.139", user="root", password="pdb_2021", database="multikino")
+class Connection:
+    def __init__(self, host_ip):
+        self.mydb = mysql.connector.connect(host=host_ip, user="root", password="pdb_2021", database="multikino")
         self.mycursor = self.mydb.cursor()
 
     def add_addable_element(self, addable_element: AddableToDatabase):
@@ -32,7 +29,7 @@ class Connection():
 
 
 if __name__ == "__main__":
-    conn = Connection()
+    conn = Connection(host_ip="25.89.241.139")
 
     conn.mycursor.execute("SHOW TABLES")
     for x in conn.mycursor:
