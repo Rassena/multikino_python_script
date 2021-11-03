@@ -48,14 +48,13 @@ class AllTables:
         prices: list[Price] = tab_with_all_tabs[prices_inx]
 
         # Entities with one fk________________________________________________________________________________
-        tab_with_all_tabs[seats_inx] = [Seat(room.Id_room) for room in rooms for i in range(45)]
-        seats: list[Seat] = tab_with_all_tabs[seats_inx]
-
         tab_with_all_tabs[movies_inx] = [Movie(random.choice(ageRestrictions).Id_ageRestriction)
                                          for i in range(MOVIE_NUM)]
+        tab_with_all_tabs[seats_inx] = [Seat(room.Id_room) for room in rooms for i in range(45)]
+
         movies: list[Movie] = tab_with_all_tabs[movies_inx]
+        seats: list[Seat] = tab_with_all_tabs[seats_inx]
         tab_with_all_tabs[posters_inx] = [Poster(movie.Id_movie) for movie in movies]
-        # posters: list[Poster] = tab_with_all_tabs[posters_inx]
 
         # Entities with two fks_______________________________________________________________________________
         tab_with_all_tabs[movie_countries_inx] = [Movie_Country(movie.Id_movie, country.Id_country)
@@ -79,8 +78,8 @@ class AllTables:
         movieVersions: list[MovieVersion] = tab_with_all_tabs[movieVersions_inx]
 
         tab_with_all_tabs[movie_movieVersions_inx] = [Movie_MovieVersion(movie.Id_movie, movieVersion.Id_movieVersion)
-                               for movie in movies
-                               for movieVersion in random.choices(movieVersions, k=random.randrange(1, 4))]
+                                                      for movie in movies
+                                                      for movieVersion in random.choices(movieVersions, k=random.randrange(1, 4))]
         movie_movieVersions: list[Movie_MovieVersion] = tab_with_all_tabs[movie_movieVersions_inx]
 
         tab_with_all_tabs[seanses_inx] = [Seans(room.Id_room, movieVersion.Id_movieVersion)
@@ -97,6 +96,7 @@ class AllTables:
                                                for user in clients
                                                for seans in random.choices(seanses, k=random.randrange(1, 5))]
         reservations: list[Reservation] = tab_with_all_tabs[reservations_inx]
+
         tab_with_all_tabs[tickets_inx] = [Ticket(seat.Id_seat, reservation.Id_reservation,
                                                  random.choice(discounts).Id_discount, random.choice(prices).Id_price)
                                           for reservation in reservations
