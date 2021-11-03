@@ -2,7 +2,6 @@ import mysql.connector
 from all_tables import AllTables
 from supporting_methods import AddableToDatabase
 
-from anything_but_main import *
 
 class Connection():
     mycursor = None
@@ -36,7 +35,6 @@ if __name__ == "__main__":
     conn = Connection()
 
     conn.mycursor.execute("SHOW TABLES")
-
     for x in conn.mycursor:
         print(x)
 
