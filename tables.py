@@ -298,16 +298,11 @@ class Reservation:
         self.Fk_user = fk_user
 
 
-class Ticket:
-    # Id_ticket: int
-    Fk_seat: int
-    Fk_reservation: int
-    Fk_discount: int
-    Fk_price: int
-
-    def __init__(self):
-        # self.
-        self.Fk_seat = random.randint(1, SEAT)
-        self.Fk_reservation = random.randint(1, RESERVATION)
-        self.Fk_discount = random.randint(1, len(DISCOUNTS))
-        self.Fk_price = random.randint(1, len(PRICE))
+class Ticket(ObjectWithCounter):
+    def __init__(self, fk_seat: int, fk_reservation: int, fk_discount: int, fk_price: int):
+        self.Id_ticket: int = Ticket.counter
+        Ticket.counter += 1
+        self.Fk_seat = fk_seat
+        self.Fk_reservation = fk_reservation
+        self.Fk_discount = fk_discount
+        self.Fk_price = fk_price
