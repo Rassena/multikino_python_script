@@ -1,7 +1,6 @@
 import mysql.connector
-
-from tables import *
-import constants as const
+from all_tables import AllTables
+from supporting_methods import AddableToDatabase
 
 from anything_but_main import *
 
