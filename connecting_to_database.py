@@ -1,6 +1,8 @@
 import mysql.connector
 from all_tables import AllMultikinoEntities
 from supporting_methods import AddableToDatabase
+VIRTUAL_MACHINE = "25.3.64.93"
+MICHAL = "25.89.241.139"
 
 
 class Connection:
@@ -26,7 +28,7 @@ class Connection:
 
 
 if __name__ == "__main__":
-    conn = Connection(host_ip="25.3.64.93")
+    conn = Connection(host_ip=VIRTUAL_MACHINE)
 
     conn.mycursor.execute("SHOW TABLES")
     count_en = 0
