@@ -29,23 +29,16 @@ class Connection:
 
 if __name__ == "__main__":
     conn = Connection(host_ip=VIRTUAL_MACHINE)
-
-    conn.mycursor.execute("SHOW TABLES")
-    count_en = 0
-    for x in conn.mycursor:
-        print(x)
-        count_en += 1
-
-    print(f'all: {count_en}')
+    conn2 = Connection(host_ip=MICHAL)
 
     all_tables = AllMultikinoEntities().all_entities
     errors = 0
     current = 0
     for element in all_tables:
-        # print(element)
         try:
             conn.add_addable_element(element)
-            current+=1
+            conn2.add_addable_element(element)
+            current += 1
             if current % 200 == 0:
                 print(f'{current}: Current added {element}')
         except mysql.connector.errors.IntegrityError as e:
@@ -53,5 +46,3 @@ if __name__ == "__main__":
             errors += 1
 
     print(f'ERRORS: {errors}/{len(all_tables)}')
-    # # for error in errors: print(f'{error}')
-
