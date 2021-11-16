@@ -1,3 +1,7 @@
+/* script for creating our current (empty) databese and droping old one */
+/* initialization script must be run first */
+/* this one can be used as content restart */
+
 DROP database multikino;
 Create database multikino;
 
