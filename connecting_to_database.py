@@ -37,7 +37,6 @@ if __name__ == "__main__":
     for element in all_tables:
         try:
             conn.add_addable_element(element)
-            conn2.add_addable_element(element)
             current += 1
             if current % 200 == 0:
                 print(f'{current}: Current added {element}')
