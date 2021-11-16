@@ -97,8 +97,16 @@ class AllMultikinoEntities:
                                                for seans in random.choices(seanses, k=random.randrange(1, 5))]
         reservations: list[Reservation] = tab_with_all_tabs[reservations_inx]
 
+        def price_for_reservation(r: Reservation) -> Price:
+            s = [e for e in seanses if e.Id_seans == r.Fk_seans][0]
+            mmv = [e for e in movie_movieVersions if e.Id_movie_movieVersion == s.Fk_movie_movieVersion][0]
+            mv = [e for e in movieVersions if e.Id_movieVersion == mmv.Fk_movieVersion][0]
+            d = [e for e in dimensions if e.Id_dimension == mv.Fk_dimension][0]
+            p = [e for e in prices if e.Fk_dimension == d.Id_dimension][0]
+            return p
+
         tab_with_all_tabs[tickets_inx] = [Ticket(seat.Id_seat, reservation.Id_reservation,
-                                                 random.choice(discounts).Id_discount, random.choice(prices).Id_price)
+                                                 random.choice(discounts).Id_discount, price_for_reservation(reservation).Id_price)
                                           for reservation in reservations
                                           for seat in random.choices(seats, k=random.randrange(1, 5))]
         self.all_entities = []
