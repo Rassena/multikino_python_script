@@ -17,11 +17,15 @@ ORDER BY seans.Seans_time;
 /* Query 2 (interface 9, 17) - wszystkie zajęte miejsca dla danego seansu */
 SELECT seans.Id_seans, m.Movie_name, s.Seat_row, s.Seat_number, rs.ReservationState_name
 FROM seans
-INNER JOIN reservation
-ON seans.Id_seans = reservation.Fk_seans
+INNER JOIN reservation ON seans.Id_seans = reservation.Fk_seans
+INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
+INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
+INNER JOIN reservationstate rs on reservation.Fk_reservationState = rs.Id_reservationState
+INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
+INNER JOIN seat s on t.Fk_seat = s.Id_seat
 WHERE seans.Id_seans = 366
-AND (reservation.Fk_reservationState = 2 OR
-     reservation.Fk_reservationState = 3);
+AND (rs.Id_reservationState = 2 OR
+     rs.Id_reservationState = 3);
 
 
 /* Query 3 (interface 19) - wszystkie dzisiejsze rezerwacje na dane nazwisko */
