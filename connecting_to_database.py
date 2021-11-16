@@ -29,7 +29,7 @@ class Connection:
 
 if __name__ == "__main__":
     conn = Connection(host_ip=VIRTUAL_MACHINE)
-    conn2 = Connection(host_ip=MICHAL)
+    # conn = Connection(host_ip=MICHAL)
 
     all_tables = AllMultikinoEntities().all_entities
     errors = 0
