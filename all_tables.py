@@ -32,8 +32,7 @@ class AllMultikinoEntities:
         tab_with_all_tabs[genres_inx] = [Genre(str_val) for str_val in CATEGORIES]
         tab_with_all_tabs[countries_inx] = [Country(str_val) for str_val in COUNTRIES]
         tab_with_all_tabs[privileges_inx] = [Privilege(str_val) for str_val in PRIVILAGES]
-        tab_with_all_tabs[discounts_inx] = [Discount(float_val) for float_val in DISCOUNTS]
-        tab_with_all_tabs[prices_inx] = [Price(float_val) for float_val in PRICES]
+        tab_with_all_tabs[discounts_inx] = [Discount(discount_name, float_val) for discount_name, float_val in DISCOUNTS]
 
         ageRestrictions: list[AgeRestriction] = tab_with_all_tabs[ageRestrictions_inx]
         rooms: list[Room] = tab_with_all_tabs[rooms_inx]
@@ -45,13 +44,14 @@ class AllMultikinoEntities:
         countries: list[Country] = tab_with_all_tabs[countries_inx]
         privileges: list[Privilege] = tab_with_all_tabs[privileges_inx]
         discounts: list[Discount] = tab_with_all_tabs[discounts_inx]
-        prices: list[Price] = tab_with_all_tabs[prices_inx]
 
         # Entities with one fk________________________________________________________________________________
+        tab_with_all_tabs[prices_inx] = [Price(PRICES[i], dimensions[i].Id_dimension) for i in range(len(dimensions))]
         tab_with_all_tabs[movies_inx] = [Movie(random.choice(ageRestrictions).Id_ageRestriction)
                                          for i in range(MOVIE_NUM)]
         tab_with_all_tabs[seats_inx] = [Seat(room.Id_room) for room in rooms for i in range(15*15)]
 
+        prices: list[Price] = tab_with_all_tabs[prices_inx]
         movies: list[Movie] = tab_with_all_tabs[movies_inx]
         seats: list[Seat] = tab_with_all_tabs[seats_inx]
         tab_with_all_tabs[posters_inx] = [Poster(movie.Id_movie) for movie in movies]

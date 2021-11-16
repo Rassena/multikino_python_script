@@ -109,9 +109,10 @@ class Dimension(ObjectWithCounter, AddableToDatabase):
 
 
 class Discount(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, discount_name: str):
+    def __init__(self, discount_name: str, discount_value: float):
         self.Id_discount = Discount.next()
         self.Discount_name: str = discount_name
+        self.Discount_value: float = discount_value
 
 
 class Genre(ObjectWithCounter, AddableToDatabase):
@@ -156,9 +157,10 @@ class Poster(ObjectWithCounter, AddableToDatabase):
 
 
 class Price(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, price_value: float):
+    def __init__(self, price_value: float, fk_dimension: int):
         self.Id_price = Price.next()
         self.Price_value: float = price_value
+        self.Fk_dimension: int = fk_dimension
 
 
 class Privilege(ObjectWithCounter, AddableToDatabase):

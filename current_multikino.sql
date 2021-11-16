@@ -102,6 +102,7 @@ CREATE TABLE Dimension (
 CREATE TABLE Discount(
     Id_discount int not null auto_increment,
     Discount_name varchar(30),
+    Discount_value float CHECK (0 <= Discount_value <= 1),
     PRIMARY KEY (Id_discount)
 );
 
