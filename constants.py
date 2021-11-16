@@ -61,7 +61,7 @@ CATEGORIES = ["Akcji", "Biograficzne", "Dla dzieci", "Dokumentalne", "Dramaty", 
               "Nagradzane", "Obyczajowe", "Polskie", "Przygodowe", "Psychologiczne", "Romanse", "Sci-fi", "Sensacyjne",
               "Sztuki walki", "Thrillery", "Western", "Wojenne"]
 
-MAX_SEAT_IN_ROW = 15
+SEAT_ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']
 
 DEFAULT_YEAR_START = 1920
 DEFAULT_YEAR_END = 2021

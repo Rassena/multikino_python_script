@@ -60,7 +60,6 @@ class User(ObjectWithCounter, AddableToDatabase):
 
 
 class Seat(ObjectWithCounter, AddableToDatabase):
-    MAX_SEAT_IN_ROW = 15
     rooms_seats = {}
 
     def __init__(self, fk_room: int):
@@ -71,8 +70,8 @@ class Seat(ObjectWithCounter, AddableToDatabase):
         else:
             Seat.rooms_seats[fk_room] += 1
 
-        self.Seat_row: str = Seat.rooms_seats[fk_room] // Seat.MAX_SEAT_IN_ROW + 1
-        self.Seat_number: int = Seat.rooms_seats[fk_room] % Seat.MAX_SEAT_IN_ROW + 1
+        self.Seat_row: str = SEAT_ROWS[Seat.rooms_seats[fk_room] // len(SEAT_ROWS)]
+        self.Seat_number: int = Seat.rooms_seats[fk_room] % len(SEAT_ROWS) + 1
         # Seat_number > 0)
         self.Fk_room: int = fk_room
 
