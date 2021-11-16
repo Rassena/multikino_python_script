@@ -185,10 +185,10 @@ class Rating(ObjectWithCounter, AddableToDatabase):
 
 
 class Seans(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, fk_room: int, fk_movieVersion: int):
+    def __init__(self, fk_room: int, fk_movie_movieVersion: int):
         self.Id_seans: int = Seans.next()
         self.Fk_room = fk_room
-        self.Fk_movieVersion = fk_movieVersion
+        self.Fk_movie_movieVersion = fk_movie_movieVersion
         self.Seans_date = random_date_generator(2021, 2022)
         self.Seans_time = random_time_generator()
 

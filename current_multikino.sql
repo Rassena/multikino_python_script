@@ -194,11 +194,11 @@ CREATE TABLE Rating (
 CREATE TABLE Seans (
     Id_seans int not null auto_increment,
     Fk_room int not null,
-    Fk_movieVersion int not null,
+    Fk_movie_MovieVersion int not null,
     Seans_date date not null,
     Seans_time time,
     FOREIGN KEY (Fk_room) REFERENCES Room (Id_room),
-    FOREIGN KEY (Fk_movieVersion) REFERENCES MovieVersion (Id_movieVersion),
+    FOREIGN KEY (Fk_movie_MovieVersion) REFERENCES Movie_MovieVersion (Id_movie_movieVersion),
     PRIMARY KEY (id_seans)
 );
 
