@@ -68,7 +68,7 @@ INNER JOIN (
      INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
      INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
      GROUP BY m.Id_movie
- ) gr on seans.Seans_time = gr.Id_movie
+ ) gr on m.Id_movie = gr.Id_movie
 WHERE Seans_date = DATE(NOW())
 ORDER BY gr.count DESC;
 
