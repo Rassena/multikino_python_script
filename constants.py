@@ -53,7 +53,7 @@ DIMENSIONS = ["2D", "3D", "IMAX"]
 SEAT = 150
 TRANSLATIONS = ["Dubbing", "Napisy", "Lektor"]
 ROLES = ['aktor', 'reżyser', 'scenarzysta']
-RESERVATION_STATES = ["Dostepne", "Rezerwacja", "Wykupione", "Rezerwacja przepadła"]
+RESERVATION_STATES = ["Rezerwacja anulowana", "Rezerwacja", "Wykupione", "Rezerwacja przepadła"]
 ROOMS = ['1', '2', '3', '4A', '4B', '5', 'IMAX', '5D']
 
 CATEGORIES = ["Akcji", "Biograficzne", "Dla dzieci", "Dokumentalne", "Dramaty", "Europejskie", "Familijne", "Fantasy",
