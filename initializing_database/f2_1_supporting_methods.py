@@ -2,7 +2,7 @@ import random
 import string
 from datetime import date, timedelta, time, datetime
 
-from constants import *
+from initializing_database.f2_0_constants import *
 
 
 def random_string_generator(length) -> str:
@@ -34,31 +34,3 @@ def random_time_generator(hour_start: int = DEFAULT_HOUR_START, hour_end: int = 
     to_str = str(h) + ":" + str(m)
     t = datetime.strptime(to_str, "%H:%M")
     return t.time()
-
-
-class ObjectWithCounter:
-    counter = 1
-
-    @classmethod
-    def next(cls):
-        counter_val = cls.counter
-        cls.counter += 1
-        return counter_val
-
-
-class AddableToDatabase:
-    @property
-    def sql_addable(self):
-        """
-        example: "INSERT INTO ClassName (Atr_1, Atr_2) VALUES (%(Atr_1)s, %(Atr_2)s)"
-        """
-        keys = ', '.join(self.__dict__.keys())
-        keys_insertable = ', '.join([f'%({key})s' for key in self.__dict__.keys()])
-        return f'INSERT INTO {self.__class__.__name__} ({keys}) VALUES ({keys_insertable})'
-
-    def __str__(self):
-        keys, values = '', ''
-        if len(self.__dict__) > 0:
-            keys = ', '.join(self.__dict__.keys())
-            values = ', '.join([str(value) for value in self.__dict__.values()])
-        return f'{self.__class__.__name__} ({keys}) : ({values})'

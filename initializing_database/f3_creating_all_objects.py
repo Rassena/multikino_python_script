@@ -1,5 +1,4 @@
-from constants import *
-from tables import *
+from initializing_database.f2_3_tables_as_classes import *
 
 
 class AllMultikinoEntities:

@@ -1,7 +1,7 @@
 import names
-from constants import *
 
-from supporting_methods import *
+from initializing_database.f2_1_supporting_methods import *
+from initializing_database.f2_2_parent_classes import ObjectWithCounter, AddableToDatabase
 
 
 class AgeRestriction(ObjectWithCounter, AddableToDatabase):

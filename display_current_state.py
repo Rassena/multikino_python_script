@@ -1,10 +1,9 @@
-from connecting_to_database import Connection, VIRTUAL_MACHINE, MICHAL
-from inspect import isclass
-import tables
+from initializing_database.f4_adding_objects_to_database import Connection, VIRTUAL_MACHINE, MICHAL, LOCALHOST
 
 if __name__ == '__main__':
-    conn = Connection(host_ip=VIRTUAL_MACHINE)
+    # conn = Connection(host_ip=VIRTUAL_MACHINE)
     # conn = Connection(host_ip=MICHAL)
+    conn = Connection(host_ip=LOCALHOST)
     classes = ['AgeRestriction', 'Artist', 'CastAssignment', 'Country', 'Dimension', 'Discount', 'Genre',
                'Movie', 'MovieVersion', 'Movie_Country', 'Movie_Genre', 'Movie_MovieVersion', 'Poster',
                'Price', 'Privilege', 'PrivilegeAssignment', 'Rating', 'Reservation', 'ReservationState',
