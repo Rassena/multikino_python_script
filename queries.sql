@@ -143,5 +143,5 @@ INNER JOIN movieversion mv on mmv.Fk_movieVersion = mv.Id_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN translation t on mv.Fk_translation = t.Id_translation
 INNER JOIN dimension d on mv.Fk_dimension = d.Id_dimension
-WHERE Seans_date = DATE(NOW()) AND
-      m.Movie_name = 'Movie name ncDxR';
+WHERE Seans_date = DATE('2021-11-19') AND
+      m.Movie_name = 'Movie name vBzo9';
