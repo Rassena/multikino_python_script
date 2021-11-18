@@ -93,9 +93,17 @@ INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN seat s on t.Fk_seat = s.Id_seat
 WHERE reservation.Id_reservation = 696;
 
-/* Query 8 (interface 16) - lista obecnie trwających seansów (mamy datę rozpoczęcia i czas trwania filmu)
-   - do zrobienia */
-
+# TODO: Sprawdzic czy sa wolne miejsca
+/* Query 8 (interface 16) - lista obecnie trwających seansów (mamy datę rozpoczęcia i czas trwania filmu)*/
+SELECT m.Movie_name, Seans_time, (Seans_time <= TIME(NOW())) AS 'Rozpoczal sie', t.Translation_name, d.Dimension_name
+FROM seans
+INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
+INNER JOIN movieversion m2 on mmv.Fk_movieVersion = m2.Id_movieVersion
+INNER JOIN translation t on m2.Fk_translation = t.Id_translation
+INNER JOIN dimension d on m2.Fk_dimension = d.Id_dimension
+INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
+WHERE Seans_date = DATE(NOW())
+ORDER BY Seans_time, m.Movie_name;
 
 /* Query 9 (interface ) - lista gatunków dla danego tytułu - do zrobienia */
 SELECT Genre_name
@@ -105,8 +113,25 @@ INNER JOIN movie m on movie_genre.Fk_movie = m.Id_movie
 WHERE Id_movie = 46;
 
 /* Query 10 (interface 5) - lista filmów w którym dany twórca brał udział,
-   w tabeli informacja o roli (reżyser/aktor/scenarzysta) - do zrobienia */
+   w tabeli informacja o roli (reżyser/aktor/scenarzysta)*/
+SELECT movie.Movie_name, r.Role_name, a.Artist_name, a.Artist_surname
+FROM movie
+INNER JOIN castassignment c on movie.Id_movie = c.Fk_movie
+INNER JOIN artist a on c.Fk_artist = a.Id_artist
+INNER JOIN role r on c.Fk_role = r.Id_role
+WHERE a.Artist_surname = 'Ebinger'
+ORDER BY r.Role_name, Movie_name;
 
-/* Query 11 (interface ) -  - do zrobienia */
+/* Query 11 (interface 8) - Wszystkie bieżące rezerwacje dla danego konta - do zrobienia */
+SELECT Seans_date, Seans_time, m.Movie_name
+FROM seans
+INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
+INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
+INNER JOIN reservation r on seans.Id_seans = r.Fk_seans
+INNER JOIN reservationstate r2 on r.Fk_reservationState = r2.Id_reservationState
+INNER JOIN user u on r.Fk_user = u.Id_user
+WHERE Seans_date >= DATE(NOW()) AND
+      (r2.Id_reservationState = 2 OR r2.Id_reservationState = 3) AND
+      u.Id_user = 511;
 
 /* Query 12 (interface ) -  - do zrobienia */
