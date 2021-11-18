@@ -135,7 +135,7 @@ WHERE Seans_date >= DATE(NOW()) AND
       u.Id_user = 511;
 
 /* Query 12 (interface 4) - Wyświetlanie repertuaru w wybrany dzień dla danego filmu */
-SELECT Seans_time, d.Dimension_name, t.Translation_name, m.Movie_name
+SELECT Seans_time, d.Dimension_name, t.Translation_name
 FROM seans
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movieversion mv on mmv.Fk_movieVersion = mv.Id_movieVersion
