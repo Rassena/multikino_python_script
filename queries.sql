@@ -23,7 +23,7 @@ INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN reservationstate rs on reservation.Fk_reservationState = rs.Id_reservationState
 INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
 INNER JOIN seat s on t.Fk_seat = s.Id_seat
-WHERE seans.Id_seans = 366
+WHERE seans.Id_seans = :input_id_seans # 174, 62
 AND (rs.Id_reservationState = 2 OR
      rs.Id_reservationState = 3);
 
@@ -38,8 +38,8 @@ INNER JOIN reservationstate r on reservation.Fk_reservationState = r.Id_reservat
 INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
-WHERE seans.Seans_date = DATE(NOW()) AND
-      user.User_surname = 'Wise'
+WHERE seans.Seans_date = DATE(NOW())
+AND user.User_surname = :nazwisko # Bisarra, Roberts
 GROUP BY Id_reservation;
 
 # TODO: sprawdzić ponownie czy ceny są poprawnie wprowadzone (inne cany na ten sam seans)
@@ -51,9 +51,9 @@ ON reservation.Id_reservation = ticket.Fk_reservation
 INNER JOIN price p on ticket.Fk_price = p.Id_price
 INNER JOIN discount d on ticket.Fk_discount = d.Id_discount
 INNER JOIN seat s on ticket.Fk_seat = s.Id_seat
-WHERE Id_reservation = 696;
+WHERE Id_reservation = 696 # 696, 5
+;
 
-# FIXME: ważne żeby były wyświetlane najpopularniejsze ogólne dostępne dla dnia. a nie najpopularniejsza danego dnia
 /* Query 5 (interface 1, 2, 3, 6) - najpopularniejsze filmy sortowane po największej
    ilości sprzedanych biletów, wyświetlamy tytuły dostępne tylko w danym dniu - do zrobienia */
 SELECT  m.Movie_name, Seans_date, gr.count
@@ -77,6 +77,7 @@ SELECT m.Movie_name, AVG(Rating_rate) AS 'Rate'
 FROM rating
 INNER JOIN movie m on rating.Fk_movie = m.Id_movie
 GROUP BY Movie_name
+HAVING Rate > 7
 ORDER BY Rate DESC;
 
 
@@ -91,9 +92,8 @@ INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN seat s on t.Fk_seat = s.Id_seat
-WHERE reservation.Id_reservation = 696;
+WHERE reservation.Id_reservation = :input_id_reservation; #696, 50, 127
 
-# TODO: Sprawdzic czy sa wolne miejsca
 /* Query 8 (interface 16) - lista obecnie trwających seansów (mamy datę rozpoczęcia i czas trwania filmu)*/
 SELECT m.Movie_name, Seans_time, (Seans_time <= TIME(NOW())) AS 'Rozpoczal sie', t.Translation_name, d.Dimension_name
 FROM seans
@@ -110,16 +110,16 @@ SELECT Genre_name
 FROM movie_genre
 INNER JOIN genre g on movie_genre.Fk_genre = g.Id_genre
 INNER JOIN movie m on movie_genre.Fk_movie = m.Id_movie
-WHERE Id_movie = 46;
+WHERE Id_movie = :input_id_movie; #46, 120
 
 /* Query 10 (interface 5) - lista filmów w którym dany twórca brał udział,
    w tabeli informacja o roli (reżyser/aktor/scenarzysta)*/
-SELECT movie.Movie_name, r.Role_name, a.Artist_name, a.Artist_surname
+SELECT movie.Movie_name, r.Role_name
 FROM movie
 INNER JOIN castassignment c on movie.Id_movie = c.Fk_movie
 INNER JOIN artist a on c.Fk_artist = a.Id_artist
 INNER JOIN role r on c.Fk_role = r.Id_role
-WHERE a.Artist_surname = 'Ebinger'
+WHERE a.Id_artist = :input_id_artist # 4, 6, 10
 ORDER BY r.Role_name, Movie_name;
 
 /* Query 11 (interface 8) - Wszystkie bieżące rezerwacje dla danego konta - do zrobienia */
@@ -130,9 +130,10 @@ INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN reservation r on seans.Id_seans = r.Fk_seans
 INNER JOIN reservationstate r2 on r.Fk_reservationState = r2.Id_reservationState
 INNER JOIN user u on r.Fk_user = u.Id_user
-WHERE Seans_date >= DATE(NOW()) AND
-      (r2.Id_reservationState = 2 OR r2.Id_reservationState = 3) AND
-      u.Id_user = 511;
+WHERE (Seans_date > DATE(NOW()) OR (Seans_date = DATE(NOW()) AND Seans_time > TIME(NOW())))
+AND (r2.Id_reservationState = 2 OR r2.Id_reservationState = 3)
+AND u.Id_user = :input_id_user # 572, 663, 610
+;
 
 /* Query 12 (interface 4) - Wyświetlanie repertuaru w wybrany dzień dla danego filmu */
 SELECT Seans_time, d.Dimension_name, t.Translation_name
