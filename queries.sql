@@ -1,4 +1,4 @@
-/* Query 1 (interface 116) - wszystkie seanse dzisiaj posortowane rosnąco po godzinie,
+/* Query 1 (interface 16) - wszystkie seanse dzisiaj posortowane rosnąco po godzinie,
    w tabeli ma być informacja o tłumaczeniu i wymiarze seansu*/
 SELECT Movie_name, Seans_time, (Seans_time <= NOW()) AS 'Has_started', Translation_name, Dimension_name
 FROM seans
@@ -39,7 +39,7 @@ INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 WHERE seans.Seans_date = DATE(NOW())
-AND user.User_surname = :nazwisko # Bisarra, Roberts
+AND user.User_surname = 'Ford' # Bisarra, Roberts
 GROUP BY Id_reservation;
 
 # TODO: sprawdzić ponownie czy ceny są poprawnie wprowadzone (inne cany na ten sam seans)
@@ -80,7 +80,7 @@ GROUP BY Movie_name
 HAVING Rate > 7
 ORDER BY Rate DESC;
 
-
+# ??
 /* Query 7 (interface 19) - czy można odebrać rezerwację (jeśli miejsca nie są wykupione to można) - do zrobienia */
 SELECT reservation.Id_reservation, Id_seat, (Id_reservationState != 3) AS 'Is_buyable'
 FROM reservation
