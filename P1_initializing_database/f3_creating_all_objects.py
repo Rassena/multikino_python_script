@@ -81,9 +81,10 @@ class AllMultikinoEntities:
                                                       for movieVersion in random.choices(movieVersions, k=random.randrange(1, 4))]
         movie_movieVersions: list[Movie_MovieVersion] = tab_with_all_tabs[movie_movieVersions_inx]
 
-        tab_with_all_tabs[seanses_inx] = [Seans(room.Id_room, movieVersion.Id_movie_movieVersion)
+        tab_with_all_tabs[seanses_inx] = [Seans(room.Id_room, movie_movieVersion.Id_movie_movieVersion)
                                           for room in rooms
-                                          for movieVersion in random.choices(movie_movieVersions, k=len(movie_movieVersions) // 3)]
+                                          for movie_movieVersion in movie_movieVersions
+                                          for i in range(random.randrange(15, 30))]
         seanses: list[Seans] = tab_with_all_tabs[seanses_inx]
 
         # Entities with three+ fks______________________________________________________________________________
