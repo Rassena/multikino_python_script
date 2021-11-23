@@ -51,7 +51,7 @@ CREATE TABLE User (
     User_name varchar(255),
     User_surname varchar(255),
     User_email varchar(255) UNIQUE NOT NULL,
-    user_password varchar(255) NOT NULL,
+    User_password varchar(255) NOT NULL,
     User_birth date,
     PRIMARY KEY (id_user)
 );

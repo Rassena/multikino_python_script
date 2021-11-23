@@ -2,7 +2,7 @@
 + częste wyszukiwanie seansow po dacie (szczegolnie = DATE(NOW())) (Top 10.1)
 - dodawanie seansow do bazy danych odbywa sie codziennie (Top 10.10)
 */
-CREATE INDEX seans_date_idx
+CREATE INDEX Seans_date_idx
 ON seans(Seans_date)
 ;
 
@@ -11,7 +11,7 @@ ON seans(Seans_date)
 + czeste porownywanie czasow (szczegolnie <= TIME(NOW())) (Top 10.1)
 - dodawanie seansow do bazy danych odbywa sie codziennie (Top 10.10)
 */
-CREATE INDEX seans_time_idx
+CREATE INDEX Seans_time_idx
 ON seans(Seans_time)
 ;
 
@@ -19,7 +19,7 @@ ON seans(Seans_time)
 + czeste wyszukiwana rezerwacji po nazwisku (Top 10.1)
 - dodawanie uzytkownikow do bazy danych odbywa sie codziennie, lecz bez regularnosci (Top 10.10)
 */
-CREATE INDEX user_surname_inx
+CREATE INDEX User_surname_inx
 ON user(User_surname)
 ;
 
@@ -28,7 +28,7 @@ ON user(User_surname)
 + brak modyfikacji (Top 10.10)
 - malo elementow
 */
-CREATE INDEX reservationstate_id_inx
+CREATE INDEX Reservationstate_id_inx
 ON ticketstate(Id_ticketState)
 ;
 
@@ -37,6 +37,6 @@ ON ticketstate(Id_ticketState)
 + praktycznie brak modyfikacji (Top 10.10)
 + stosunkowo duzo elementow
 */
-CREATE INDEX genre_id_inx
+CREATE INDEX Genre_id_inx
 ON genre(Id_genre)
 ;
