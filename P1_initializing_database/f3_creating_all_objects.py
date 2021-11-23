@@ -84,7 +84,8 @@ class AllMultikinoEntities:
         tab_with_all_tabs[seanses_inx] = [Seans(room.Id_room, movie_movieVersion.Id_movie_movieVersion)
                                           for room in rooms
                                           for movie_movieVersion in movie_movieVersions
-                                          for i in range(random.randrange(15, 30))]
+                                          # for i in range(random.randrange(15, 30))
+                                          ]
         seanses: list[Seans] = tab_with_all_tabs[seanses_inx]
 
         # Entities with three+ fks______________________________________________________________________________
