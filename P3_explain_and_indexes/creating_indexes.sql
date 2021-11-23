@@ -29,7 +29,7 @@ ON user(User_surname)
 - malo elementow
 */
 CREATE INDEX reservationstate_id_inx
-ON reservationstate(Id_reservationState)
+ON ticketstate(Id_ticketState)
 ;
 
 /*

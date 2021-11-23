@@ -38,7 +38,7 @@ INNER JOIN ticketstate r on t.Fk_ticketState = r.Id_ticketState
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 WHERE seans.Seans_date = DATE(NOW())
-AND user.User_surname = 'Ford' # Bisarra, Roberts
+AND user.User_surname = 'Stark' # Bisarra, Roberts
 GROUP BY Id_reservation;
 
 # TODO: sprawdzić ponownie czy ceny są poprawnie wprowadzone (inne cany na ten sam seans)
@@ -126,6 +126,7 @@ INNER JOIN role r on c.Fk_role = r.Id_role
 WHERE a.Id_artist = :input_id_artist # 4, 6, 10
 ORDER BY r.Role_name, Movie_name;
 
+# FIXME: poprawka ze względu na reservationState -> ticketState
 /* Query 11 (interface 8) - Wszystkie bieżące rezerwacje dla danego konta - do zrobienia */
 # EXPLAIN
 SELECT Seans_date, Seans_time, m.Movie_name
@@ -149,5 +150,6 @@ INNER JOIN movieversion mv on mmv.Fk_movieVersion = mv.Id_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN translation t on mv.Fk_translation = t.Id_translation
 INNER JOIN dimension d on mv.Fk_dimension = d.Id_dimension
-WHERE Seans_date = DATE('2021-11-19') AND
-      m.Movie_name = 'Movie name vBzo9';
+WHERE Seans_date = DATE('2021-11-19')
+AND m.Movie_name = 'Movie name AGO0x'
+;
