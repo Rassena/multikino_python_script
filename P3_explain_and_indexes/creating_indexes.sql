@@ -40,3 +40,17 @@ ON ticketstate(Id_ticketState)
 CREATE INDEX Genre_id_inx
 ON genre(Id_genre)
 ;
+
+/*
+ + Częste szukanie filmów, w których aktor brał udział
+ + Rzadkie modyfikacje
+ */
+
+/*
+ + Częste sortowanie filmów po rating
+ + Rzadkie modyfikacje/dodawanie nowych filmów do repertuaru
+ +/- nie za częste dodawanie nowej oceny do filmu
+ */
+# CREATE  INDEX rating_id_inx
+# ON rating(Id_rating)
+# ;
