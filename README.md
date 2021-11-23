@@ -1,5 +1,5 @@
 # PROJEKT RELACYJNEJ BAZY DANYCH
-![image](https://user-images.githubusercontent.com/61067969/143006959-b3865965-de59-4c92-a445-6648a6ea8857.png)
+![image](https://user-images.githubusercontent.com/61067969/143085033-d5442ea3-0b05-49d4-a622-153d75e92d6c.png)
 
 ![image](https://user-images.githubusercontent.com/61067969/143007686-e8a512b7-51b7-426e-95ff-36d25ed8ece1.png)
 
