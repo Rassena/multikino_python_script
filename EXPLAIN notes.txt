@@ -1,0 +1,97 @@
+https://www.dbta.com/Columns/DBA-Corner/Top-10-Steps-to-Building-Useful-Database-Indexes-100498.aspx
+
+Top 10 Steps to Building Useful Database Indexes
+1. Index by workload, not by table
+a) list of the SQL to be used
+b) an estimate of the frequency that each SQL statement will be executed
+c) the importance of each query
+
+2. Build indexes based on predicates
+3. Index most-heavily used queries
+
+4. Index important queries
+If you are coding a query that the CIO will run every day, you want to make sure it delivers optimal performance.
+
+5. Index to avoid sorting (GROUP BY, ORDER BY)
+By indexing on the columns specified in these clauses the relational optimizer can use an index to avoid a sort, and thereby potentially improve performance.
+
+6. Create indexes for uniqueness (PK, U)
+7. Create indexes for foreign keys
+
+8. Consider adding columns for index only access
+With index-only access all of the data needed to satisfy the query can be found in the index alone —
+without having to read data from the table space.
+
+9. Don’t arbitrarily limit number of indexes
+
+10. Be aware of data modification implications
+every INSERT and every DELETE to an indexed table will insert and delete not just from the table,
+but also from its indexes. Same goes for UPDATE.
+So, indexes speed the process of retrieval but slow down modification.
+
+
+
+https://dev.mysql.com/doc/refman/8.0/en/explain-output.html
+
+Table 8.1 EXPLAIN Output Columns
+Column - Meaning
+id - The SELECT identifier
+select_type - The SELECT type
+-> SIMPLE - Simple SELECT (not using UNION or subqueries)
+-> PRIMARY - Outermost SELECT
+-> DERIVED - Derived table
+
+table - The table for the output row
+partitions - The matching partitions
+type - The join type
+possible_keys - The possible indexes to choose
+key - The index actually chosen
+key_len - The length of the chosen key
+ref - The columns compared to the index
+rows - Estimate of rows to be examined
+filtered - Percentage of rows filtered by table condition
+Extra - Additional information
+
+
+EXPLAIN Join Types
+-> eq_ref
+One row is read from this table for each combination of rows from the previous tables.
+Other than the system and const types, this is the best possible join type.
+It is used when all parts of an index are used by the join and the index is a PRIMARY KEY
+or UNIQUE NOT NULL index.
+eq_ref can be used for indexed columns that are compared using the = operator.
+The comparison value can be a constant or an expression that uses columns from tables
+that are read before this table.
+
+->ALL
+A full table scan is done for each combination of rows from the previous tables.
+This is normally not good if the table is the first table not marked const,
+and usually very bad in all other cases.
+Normally, you can avoid ALL by adding indexes that enable row retrieval
+from the table based on constant values or column values from earlier tables.
+
+-> ref
+All rows with matching index values are read from this table for each combination
+of rows from the previous tables.
+ref is used if the join uses only a leftmost prefix of the key or if the key is not a PRIMARY KEY or UNIQUE index
+(in other words, if the join cannot select a single row based on the key value).
+If the key that is used matches only a few rows, this is a good join type.
+ref can be used for indexed columns that are compared using the = or <=> operator.
+
+-> const
+The table has at most one matching row, which is read at the start of the query.
+Because there is only one row, values from the column in this row can be regarded
+as constants by the rest of the optimizer.
+const tables are very fast because they are read only once.
+const is used when you compare all parts of a PRIMARY KEY or UNIQUE index to constant values.
+
+-> index
+The index join type is the same as ALL, except that the index tree is scanned.
+This occurs two ways:
+--  If the index is a covering index for the queries and can be used to satisfy all data required from the table,
+    only the index tree is scanned. In this case, the Extra column says Using index.
+    An index-only scan usually is faster than ALL because the size of the index usually
+    is smaller than the table data.
+--  A full table scan is performed using reads from the index to look up data rows in index order.
+    Uses index does not appear in the Extra column.
+MySQL can use this join type when the query uses only columns that are part of a single index.
