@@ -16,10 +16,10 @@ class Room(ObjectWithCounter, AddableToDatabase):
         self.Room_sign: str = room_sign
 
 
-class ReservationState(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, reservation_state_name: str):
-        self.Id_reservationState: int = ReservationState.next()
-        self.ReservationState_name: str = reservation_state_name
+class TicketState(ObjectWithCounter, AddableToDatabase):
+    def __init__(self, ticket_state_name: str):
+        self.Id_ticketState: int = TicketState.next()
+        self.TicketState_name: str = ticket_state_name
 
 
 class Role(ObjectWithCounter, AddableToDatabase):
@@ -193,17 +193,17 @@ class Seans(ObjectWithCounter, AddableToDatabase):
 
 
 class Reservation(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, fk_seans: int, fk_reservationState: int, fk_user: int):
+    def __init__(self, fk_seans: int, fk_user: int):
         self.Id_reservation: int = Reservation.next()
         self.Fk_seans = fk_seans
-        self.Fk_reservationState = fk_reservationState
         self.Fk_user = fk_user
 
 
 class Ticket(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, fk_seat: int, fk_reservation: int, fk_discount: int, fk_price: int):
+    def __init__(self, fk_seat: int, fk_reservation: int, fk_discount: int, fk_price: int, fk_ticketState: int):
         self.Id_ticket: int = Ticket.next()
         self.Fk_seat = fk_seat
         self.Fk_reservation = fk_reservation
         self.Fk_discount = fk_discount
         self.Fk_price = fk_price
+        self.Fk_ticketState = fk_ticketState

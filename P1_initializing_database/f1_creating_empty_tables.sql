@@ -18,10 +18,10 @@ CREATE TABLE Room (
     PRIMARY KEY (id_room)
 );
 
-CREATE TABLE ReservationState (
-    Id_reservationState int not null auto_increment,
-    ReservationState_name varchar(255),
-    PRIMARY KEY (Id_reservationState)
+CREATE TABLE TicketState (
+    Id_ticketState int not null auto_increment,
+    TicketState_name varchar(255),
+    PRIMARY KEY (Id_ticketState)
 );
 
 CREATE TABLE Role (
@@ -205,10 +205,8 @@ CREATE TABLE Seans (
 CREATE TABLE Reservation (
     Id_reservation int not null auto_increment,
     Fk_seans int not null,
-    Fk_reservationState int not null,
     Fk_user int,
     FOREIGN KEY (Fk_seans) REFERENCES Seans (Id_seans),
-    FOREIGN KEY (Fk_reservationState) REFERENCES ReservationState (id_reservationState),
     FOREIGN KEY (Fk_user) REFERENCES User (Id_user),
     PRIMARY KEY (Id_reservation)
 );
@@ -219,9 +217,11 @@ CREATE TABLE Ticket (
     Fk_reservation int not null,
     Fk_discount int,
     Fk_price int not null,
+    Fk_ticketState int not null,
     FOREIGN KEY (Fk_seat) REFERENCES Seat (Id_seat),
     FOREIGN KEY (Fk_reservation) REFERENCES Reservation (Id_reservation),
     FOREIGN KEY (Fk_discount) REFERENCES Discount (Id_discount),
     FOREIGN KEY (Fk_price) REFERENCES Price (Id_price),
+    FOREIGN KEY (Fk_ticketState) REFERENCES TicketState (Id_ticketState),
     PRIMARY KEY (id_ticket)
 );

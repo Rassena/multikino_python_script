@@ -4,7 +4,7 @@ from P1_initializing_database.f2_3_tables_as_classes import *
 class AllMultikinoEntities:
     def __init__(self):
         tab_with_all_tabs = [[] for i in range(NUMBER_OF_ALL_ENTITIES)]
-        ageRestrictions_inx, rooms_inx, reservationStates_inx, roles_inx, translations_inx, \
+        ageRestrictions_inx, rooms_inx, ticketStates_inx, roles_inx, translations_inx, \
         artists_inx, users_inx, seats_inx, movies_inx, castAssigments_inx, countries_inx, \
         dimensions_inx, discounts_inx, genres_inx, movieVersions_inx, movie_countries_inx, \
         movie_genres_inx, movie_movieVersions_inx, posters_inx, prices_inx, privileges_inx, \
@@ -25,7 +25,7 @@ class AllMultikinoEntities:
         tab_with_all_tabs[ageRestrictions_inx] = [AgeRestriction(str_val) for str_val in AGE_RESTRICTIONS]
         tab_with_all_tabs[rooms_inx] = [Room(str_val) for str_val in ROOMS]
         tab_with_all_tabs[roles_inx] = [Role(str_val) for str_val in ROLES]
-        tab_with_all_tabs[reservationStates_inx] = [ReservationState(str_val) for str_val in RESERVATION_STATES]
+        tab_with_all_tabs[ticketStates_inx] = [TicketState(str_val) for str_val in TICKET_STATES]
         tab_with_all_tabs[translations_inx] = [Translation(str_val) for str_val in TRANSLATIONS]
         tab_with_all_tabs[dimensions_inx] = [Dimension(str_val) for str_val in DIMENSIONS]
         tab_with_all_tabs[genres_inx] = [Genre(str_val) for str_val in CATEGORIES]
@@ -36,7 +36,7 @@ class AllMultikinoEntities:
         ageRestrictions: list[AgeRestriction] = tab_with_all_tabs[ageRestrictions_inx]
         rooms: list[Room] = tab_with_all_tabs[rooms_inx]
         roles: list[Role] = tab_with_all_tabs[roles_inx]
-        reservationStates: list[ReservationState] = tab_with_all_tabs[reservationStates_inx]
+        ticketStates: list[TicketState] = tab_with_all_tabs[ticketStates_inx]
         translations: list[Translation] = tab_with_all_tabs[translations_inx]
         dimensions: list[Dimension] = tab_with_all_tabs[dimensions_inx]
         genres: list[Genre] = tab_with_all_tabs[genres_inx]
@@ -91,9 +91,9 @@ class AllMultikinoEntities:
                                                  for movie in movies
                                                  for artist in random.choices(artists, k=len(roles))]
 
-        tab_with_all_tabs[reservations_inx] = [Reservation(seans.Id_seans, random.choice(reservationStates).Id_reservationState, user.Id_user)
+        tab_with_all_tabs[reservations_inx] = [Reservation(seans.Id_seans, user.Id_user)
                                                for user in clients
-                                               for seans in random.choices(seanses, k=random.randrange(1, 5))]
+                                               for seans in random.choices(seanses, k=random.randrange(1, 20))]
         reservations: list[Reservation] = tab_with_all_tabs[reservations_inx]
 
         def price_for_reservation(r: Reservation) -> Price:
@@ -105,7 +105,8 @@ class AllMultikinoEntities:
             return p
 
         tab_with_all_tabs[tickets_inx] = [Ticket(seat.Id_seat, reservation.Id_reservation,
-                                                 random.choice(discounts).Id_discount, price_for_reservation(reservation).Id_price)
+                                                 random.choice(discounts).Id_discount, price_for_reservation(reservation).Id_price,
+                                                 random.choice(ticketStates).Id_ticketState)
                                           for reservation in reservations
                                           for seat in random.choices(seats, k=random.randrange(1, 5))]
         self.all_entities = []

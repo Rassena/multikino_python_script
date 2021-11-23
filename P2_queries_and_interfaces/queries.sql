@@ -14,27 +14,27 @@ ORDER BY seans.Seans_time;
 
 /* Query 2 (interface 9, 17) - wszystkie zajęte miejsca dla danego seansu */
 # EXPLAIN
-SELECT seans.Id_seans, m.Movie_name, s.Seat_row, s.Seat_number, rs.ReservationState_name
+SELECT seans.Id_seans, m.Movie_name, s.Seat_row, s.Seat_number, rs.TicketState_name
 FROM seans
 INNER JOIN reservation ON seans.Id_seans = reservation.Fk_seans
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
-INNER JOIN reservationstate rs on reservation.Fk_reservationState = rs.Id_reservationState
 INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
+INNER JOIN ticketstate rs on t.Fk_ticketState = rs.Id_ticketState
 INNER JOIN seat s on t.Fk_seat = s.Id_seat
 WHERE seans.Id_seans = :input_id_seans # 174, 62
-AND (rs.Id_reservationState = 2 OR
-     rs.Id_reservationState = 3);
+AND (rs.Id_ticketState = 2 OR
+     rs.Id_ticketState = 3);
 
 
 /* Query 3 (interface 19) - wszystkie dzisiejsze rezerwacje na dane nazwisko */
 # EXPLAIN
-SELECT user.User_surname, m.Movie_name, seans.Seans_time, ReservationState_name, COUNT(Id_ticket) AS 'Number_of_tickets'
+SELECT user.User_surname, m.Movie_name, seans.Seans_time, TicketState_name, COUNT(Id_ticket) AS 'Number_of_tickets'
 FROM reservation
 INNER JOIN seans ON reservation.Fk_seans = seans.Id_seans
 INNER JOIN user on reservation.Fk_user = user.Id_user
-INNER JOIN reservationstate r on reservation.Fk_reservationState = r.Id_reservationState
 INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
+INNER JOIN ticketstate r on t.Fk_ticketState = r.Id_ticketState
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 WHERE seans.Seans_date = DATE(NOW())
@@ -84,12 +84,12 @@ ORDER BY Rate DESC;
 # ??
 /* Query 7 (interface 19) - czy można odebrać rezerwację (jeśli miejsca nie są wykupione to można) - do zrobienia */
 # EXPLAIN
-SELECT reservation.Id_reservation, Id_seat, (Id_reservationState != 3) AS 'Is_buyable'
+SELECT reservation.Id_reservation, Id_seat, (r.Id_ticketState != 3) AS 'Is_buyable'
 FROM reservation
 INNER JOIN seans ON reservation.Fk_seans = seans.Id_seans
 INNER JOIN user on reservation.Fk_user = user.Id_user
-INNER JOIN reservationstate r on reservation.Fk_reservationState = r.Id_reservationState
 INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
+INNER JOIN ticketstate r on t.Fk_ticketState = r.Id_ticketState
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN seat s on t.Fk_seat = s.Id_seat
