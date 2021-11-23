@@ -2,7 +2,7 @@ import random
 import string
 from datetime import date, timedelta, time, datetime
 
-from initializing_database.f2_0_constants import *
+from P1_initializing_database.f2_0_constants import *
 
 
 def random_string_generator(length) -> str:

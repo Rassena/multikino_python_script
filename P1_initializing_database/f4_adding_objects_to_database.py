@@ -1,6 +1,6 @@
 import mysql.connector
-from initializing_database.f3_creating_all_objects import AllMultikinoEntities
-from initializing_database.f2_2_parent_classes import AddableToDatabase
+from P1_initializing_database.f3_creating_all_objects import AllMultikinoEntities
+from P1_initializing_database.f2_2_parent_classes import AddableToDatabase
 
 VIRTUAL_MACHINE = "25.3.64.93"
 MICHAL = "25.89.241.139"

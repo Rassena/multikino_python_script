@@ -1,4 +1,4 @@
-from initializing_database.f4_adding_objects_to_database import Connection, VIRTUAL_MACHINE, MICHAL, LOCALHOST
+from P1_initializing_database.f4_adding_objects_to_database import Connection, VIRTUAL_MACHINE, MICHAL, LOCALHOST
 
 if __name__ == '__main__':
     # conn = Connection(host_ip=VIRTUAL_MACHINE)
