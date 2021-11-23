@@ -41,7 +41,7 @@ WHERE seans.Seans_date = DATE(NOW())
 AND user.User_surname = 'Stark' # Bisarra, Roberts
 GROUP BY Id_reservation;
 
-# TODO: sprawdzić ponownie czy ceny są poprawnie wprowadzone (inne cany na ten sam seans)
+
 /* Query 4 (interface 14) - cena do zapłaty za rezerwację */
 # EXPLAIN
 SELECT Id_reservation, SUM(Price_value*(1- Discount_value)) AS Ticket_price
