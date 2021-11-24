@@ -31,7 +31,7 @@ COUNTRIES = [
     "Finland",
     "Czech Republic"
 ]
-USER_NUM = 2500
+USER_NUM = 24500
 WORKERS_NUM = 500
 MOVIE_NUM = 300
 
