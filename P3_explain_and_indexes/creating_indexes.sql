@@ -1,10 +1,30 @@
-/*
-+ częste wyszukiwanie seansow po dacie (szczegolnie = DATE(NOW())) (Top 10.1)
-- dodawanie seansow do bazy danych odbywa sie codziennie (Top 10.10)
-*/
 CREATE INDEX Seans_date_idx
 ON seans(Seans_date)
 ;
+
+CREATE INDEX Movie_movieversion__movie_idx
+ON movie_movieversion(Fk_movie)
+;
+
+CREATE INDEX Seat_room_idx
+ON seat(Fk_room)
+;
+
+CREATE INDEX Movie_genre__movie_idx
+ON movie_genre(Fk_movie)
+;
+
+CREATE INDEX Castassignment_artist_idx
+ON castassignment(Fk_artist)
+;
+# ------------------------------------------------------------------------------------------
+
+# /*
+# +/- Wprowadzanie tak częste jak wrowadzanie nowych filmow
+#  +  bardzo czeste przeszukiwania
+#  */
+# CREATE INDEX Movieversion__translation_dimension_idx
+# ON movieversion(Fk_translation, Fk_dimension)
 
 /*
 + czeste sortowanie po czasie seansu (Top 10.5)
@@ -28,7 +48,7 @@ ON user(User_surname)
 + brak modyfikacji (Top 10.10)
 - malo elementow
 */
-CREATE INDEX Reservationstate_id_inx
+CREATE INDEX Ticketstate_id_inx
 ON ticketstate(Id_ticketState)
 ;
 
@@ -38,13 +58,24 @@ ON ticketstate(Id_ticketState)
 + stosunkowo duzo elementow
 */
 CREATE INDEX Genre_id_inx
-ON genre(Id_genre)
+ON genre(Genre_name)
 ;
 
 /*
- + Częste szukanie filmów, w których aktor brał udział
- + Rzadkie modyfikacje
+ - Rzadkie wyszukiwanie po nazwie, ale się pojawia
+ + Praktycznie brak modyfikacji
  */
+CREATE INDEX Country_id_inx
+ON country(Country_name)
+;
+
+/*
+ - Czeste wprowadzanie nowych danych
+ + czeste przeszukiwania
+ */
+CREATE INDEX Reservation_id_inx
+ON reservation(Fk_seans)
+;
 
 /*
  + Częste sortowanie filmów po rating
