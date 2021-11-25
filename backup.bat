@@ -1,0 +1,1 @@
+mysqldump --routines --user=root --password=pdb_2021 multikino > multikino_backup_25_11_2021.sql

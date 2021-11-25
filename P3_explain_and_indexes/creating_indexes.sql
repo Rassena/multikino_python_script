@@ -10,6 +10,8 @@ CREATE INDEX Seat_room_idx
 ON seat(Fk_room)
 ;
 
+# ------------------------------------------------------------------------------------------
+
 CREATE INDEX Movie_genre__movie_idx
 ON movie_genre(Fk_movie)
 ;
@@ -17,7 +19,6 @@ ON movie_genre(Fk_movie)
 CREATE INDEX Castassignment_artist_idx
 ON castassignment(Fk_artist)
 ;
-# ------------------------------------------------------------------------------------------
 
 # /*
 # +/- Wprowadzanie tak częste jak wrowadzanie nowych filmow

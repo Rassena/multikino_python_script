@@ -147,11 +147,13 @@ SELECT Seans_time, d.Dimension_name, t.Translation_name
 FROM seans
 INNER JOIN movie_movieversion mmv on seans.Fk_movie_MovieVersion = mmv.Id_movie_movieVersion
 INNER JOIN movieversion mv on mmv.Fk_movieVersion = mv.Id_movieVersion
+    INNER JOIN dimension d on mv.Fk_dimension = d.Id_dimension
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
 INNER JOIN translation t on mv.Fk_translation = t.Id_translation
-INNER JOIN dimension d on mv.Fk_dimension = d.Id_dimension
-WHERE Seans_date = DATE('2021-11-19')
-AND m.Movie_name = 'Movie name AGO0x'
+WHERE
+       m.Movie_name = 'Movie name AGO0x'
+  AND
+      Seans_date = DATE('2021-11-19')
 ;
 
 /* Query 13 - wydlad sali do pokazania wolnych i zajętych miejsc */
