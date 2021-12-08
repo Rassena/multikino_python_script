@@ -41,9 +41,7 @@ DISCOUNTS = [("Normalny", 0.0), ("Ulgowy", 0.3), ("Rodzinny", 0.5), ("Grupowy", 
 DIMENSIONS = ["2D", "3D", "IMAX"]
 TRANSLATIONS = ["Dubbing", "Napisy", "Lektor"]
 ROLES = ['aktor', 'reżyser', 'scenarzysta']
-TICKET_STATES = ["Anulowany", "Zarezerwowany", "Wykupiony"
-                 # , "Rezerwacja przepadła"
-                 ]
+TICKET_STATES = ["Anulowany", "Zarezerwowany", "Wykupiony", "Odebrany"]
 ROOMS = ['1', '2', '3', '4A', '4B', '5', 'IMAX', '5D']
 
 CATEGORIES = ["Akcji", "Biograficzne", "Dla dzieci", "Dokumentalne", "Dramaty", "Europejskie", "Familijne", "Fantasy",
