@@ -234,11 +234,9 @@ CREATE TABLE Ticket (
     Fk_reservation int not null,
     Fk_discount int,
     Fk_price int not null,
-    Fk_ticketState int not null,
     FOREIGN KEY (Fk_seat) REFERENCES Seat (Id_seat),
     FOREIGN KEY (Fk_reservation) REFERENCES Reservation (Id_reservation),
     FOREIGN KEY (Fk_discount) REFERENCES Discount (Id_discount),
     FOREIGN KEY (Fk_price) REFERENCES Price (Id_price),
-    FOREIGN KEY (Fk_ticketState) REFERENCES TicketState (Id_ticketState),
     PRIMARY KEY (id_ticket)
 );
