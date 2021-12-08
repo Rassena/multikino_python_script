@@ -18,10 +18,15 @@ CREATE TABLE Room (
     PRIMARY KEY (id_room)
 );
 
-CREATE TABLE TicketState (
-    Id_ticketState int not null auto_increment,
-    TicketState_name varchar(255),
-    PRIMARY KEY (Id_ticketState)
+# done: Ticket_TicketState	(Id_ticket_ticketState,Fk_ticket, Fk_ticketState, Ticket_ticketState_date)
+CREATE TABLE Ticket_TicketState (
+    Id_ticket_ticketState int not null auto_increment,
+    Fk_ticket int not null,
+    Fk_ticketState int not null,
+    Ticket_ticketState_date datetime,
+    FOREIGN KEY (Fk_ticket) REFERENCES Ticket (Id_ticket),
+    FOREIGN KEY (Fk_ticketState) REFERENCES TicketState (id_ticketstate),
+    PRIMARY KEY (Id_ticket_ticketState)
 );
 
 CREATE TABLE Role (
@@ -114,8 +119,10 @@ CREATE TABLE Genre (
 
 CREATE TABLE MovieVersion(
     Id_movieVersion int not null auto_increment,
+    Fk_movie int not null,
     Fk_translation int not null,
     Fk_dimension int not null,
+    FOREIGN KEY (Fk_movie) REFERENCES Movie(Id_movie),
     FOREIGN KEY (Fk_translation) REFERENCES Translation(Id_translation),
     FOREIGN KEY (Fk_dimension) REFERENCES  Dimension(Id_dimension),
     PRIMARY KEY (Id_movieVersion)
@@ -139,14 +146,15 @@ CREATE TABLE Movie_Genre(
     PRIMARY KEY (Id_Movie_genre)
 );
 
-CREATE TABLE Movie_MovieVersion(
-    Id_movie_movieVersion int not null auto_increment,
-    Fk_movie int not null,
-    Fk_movieVersion int not null,
-    FOREIGN KEY (Fk_movie) REFERENCES Movie (id_movie),
-    FOREIGN KEY (Fk_movieVersion) REFERENCES MovieVersion(Id_movieVersion),
-    PRIMARY KEY (Id_movie_movieVersion)
-);
+# done: Movie_MovieVersion	()
+# CREATE TABLE Movie_MovieVersion(
+#     Id_movie_movieVersion int not null auto_increment,
+#     Fk_movie int not null,
+#     Fk_movieVersion int not null,
+#     FOREIGN KEY (Fk_movie) REFERENCES Movie (id_movie),
+#     FOREIGN KEY (Fk_movieVersion) REFERENCES MovieVersion(Id_movieVersion),
+#     PRIMARY KEY (Id_movie_movieVersion)
+# );
 
 
 
