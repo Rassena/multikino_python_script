@@ -29,6 +29,13 @@ CREATE TABLE Ticket_TicketState (
     PRIMARY KEY (Id_ticket_ticketState)
 );
 
+# done: TicketState	(Id_ticketState, TicketState_name)
+ CREATE TABLE TicketState (
+    Id_ticketState int not null auto_increment,
+    TicketState_name varchar(255),
+    PRIMARY KEY (Id_ticketState)
+);
+
 CREATE TABLE Role (
     Id_role int not null auto_increment,
     Role_name varchar(255),
@@ -117,6 +124,7 @@ CREATE TABLE Genre (
     PRIMARY KEY (Id_genre)
 );
 
+# done: MovieVersion	(Id_movieVersion, Fk_movie, Fk_translation, Fk_dimension)
 CREATE TABLE MovieVersion(
     Id_movieVersion int not null auto_increment,
     Fk_movie int not null,
@@ -210,6 +218,7 @@ CREATE TABLE Seans (
     PRIMARY KEY (id_seans)
 );
 
+# done: Reservation	(Id_reservation, Fk_seans, Fk_user)
 CREATE TABLE Reservation (
     Id_reservation int not null auto_increment,
     Fk_seans int not null,
