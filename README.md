@@ -27,6 +27,7 @@ First draft of a database. File [multikino_database.vpp](P0_planning/multikino_d
 - File [f1_creating_empty_tables](P1_initializing_database/f1_creating_empty_tables.sql) creates tables in SQL DDL 
 according to the draft.
 
+All entities after normalization:
 ```
 AgeRestriction      (Id_ageRestriction, AgeRestriction_name)
 Artist	            (Id_artnist, Artist_name, Artist_surname, Artist_birth, Artist_gender)
