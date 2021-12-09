@@ -27,6 +27,35 @@ First draft of a database. File [multikino_database.vpp](P0_planning/multikino_d
 - File [f1_creating_empty_tables](P1_initializing_database/f1_creating_empty_tables.sql) creates tables in SQL DDL 
 according to the draft.
 
+```
+AgeRestriction      (Id_ageRestriction, AgeRestriction_name)
+Artist	            (Id_artnist, Artist_name, Artist_surname, Artist_birth, Artist_gender)
+CastAssignment	    (Id_castAssignment, Fk_artist, Fk_movie,  Fk_role)
+Country	            (Id_country, Country_name)
+Dimension           (Id_dimension, Dimension_name)
+Discount            (Id_discount, Discount_name)
+Genre	            (Id_genre, Genre_name)
+Movie	            (Id_movie, Movie_name, Movie_description, Movie_premiere, Movie_duration, Fk_ageRestriction)
+MovieVersion	    (Id_movie_version, Fk_seans, Fk_translation, Fk_dimension)
+Movie_Country	    (Id_movie_country, Fk_movie, Fk_country)
+Movie_Genre         (Id_movie_genre, Fk_movie, Fk_genre)
+Movie_MovieVersion  (Id_movie_movieVersion, Fk_movie, Fk_movieVersion)
+Poster	            (Id_poster, Poster_path, Fk_movie)
+Price	            (Id_price, Fk_dimention, Fk_discount, Price_value)
+Privilege           (Id_privilege, Privilege_name)
+PrivilegeAssignment (Id_privilegeAssignment, Fk_privilege, Fk_user)
+Rating              (Id_rating, Fk_Movie, Fk_User, Rating_rate)
+Reservation         (Id_reservation, Fk_seans, Fk_reservationState, Fk_user)
+ReservationState    (Id_reservationState, ReservationState_name)
+Role	            (Id_role, Role_name)
+Room	            (Id_room, Room_sign)
+Seans	            (Id_seans, Fk_room, Fk_movieVersion, Seans_date, Seans_time)
+Seat	            (Id_seat, Seat_row, Seat_number, Fk_room)
+Ticket	            (Id_ticket, Fk_seat, Fk_reservation, Fk_discount, Fk_Price)
+Translation         (Id_translation, Translation_name)
+User	            (Id_user, User_name, User_surname, User_email, User_password, User_birth)
+```
+
 - File [f4_adding_objects_to_database](P1_initializing_database/f4_adding_objects_to_database.py) 
 fills database with objects generated in [f3_creating_all_objects](P1_initializing_database/f3_creating_all_objects.py).
 
