@@ -1,4 +1,5 @@
 # PROJEKT RELACYJNEJ BAZY DANYCH
+Kamila Sproska, Michał Gadziński, Dominik Stachowiak
 
 ## [Planning](P0_planning)
 First draft of a database. File [multikino_database.vpp](P0_planning/multikino_database.vpp) contains class diagram.
