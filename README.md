@@ -5,6 +5,24 @@ First draft of a database. File [multikino_database.vpp](P0_planning/multikino_d
 
 ![image](https://user-images.githubusercontent.com/61067969/143085033-d5442ea3-0b05-49d4-a622-153d75e92d6c.png)
 
+### Zajęcia 1 - Faza konceptualna
+#### Potrzeby informacyjne:
+- Tytuły filmów będących obecnie w kinie
+- Repertuar na dany dzień
+- Dostępność miejsc dla danego seansu
+- Daty premier filmów
+- Cennik i zniżki
+- Informacje o tytule (np opis, reżyseria...)
+- Numer sali w której ma się odbywać seans (po zakupie biletu)
+- Jakie są opcje rezerwacji x miejsc koło siebie na danym seansie
+#### Jakie wyszukania można wykonać:
+- Jakie seanse są dostępne danego dnia (opcjonalnie po danej godzinie)
+- Wyszukanie wszystkich dostępnych seansów dla danego tytułu
+- Tytuły wszystkich filmów z nieodbytymi premierami
+- Tytuły wszystkich filmów z gatunku
+- Tytuły filmów w danym typie tłumaczenia (napisy, lektor, dubbing, oryginał)
+- Tytuły po typie seansu (2d, 3d)
+
 ## [Initializing database](P1_initializing_database)
 - File [f1_creating_empty_tables](P1_initializing_database/f1_creating_empty_tables.sql) creates tables in SQL DDL 
 according to the draft.
@@ -40,6 +58,8 @@ in the [interface file](P2_queries_and_interfaces/Interfejs.pdf).
 File [creating_indexes](P3_explain_and_indexes/creating_indexes.sql) contains the script creating Indexes for SQL tables according to the need stemming from the created [queries](P2_queries_and_interfaces/queries.sql).
 
 ## [Modification](P4_mod)
+File [f1_creating_empty_tables](P4_mod/f1_creating_empty_tables.sql) creates tables in SQL DDL 
+according to the **modified** draft.
 
 ![image](https://user-images.githubusercontent.com/61067969/145451528-5adbee48-29f4-4a09-9f0a-0ef61ff6313f.png)
 
