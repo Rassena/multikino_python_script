@@ -41,6 +41,8 @@ File [creating_indexes](P3_explain_and_indexes/creating_indexes.sql) contains th
 
 ## [Modification](P4_mod)
 
+![image](https://user-images.githubusercontent.com/61067969/145451528-5adbee48-29f4-4a09-9f0a-0ef61ff6313f.png)
+
 ## Other
 
 ![image](https://user-images.githubusercontent.com/61067969/143007686-e8a512b7-51b7-426e-95ff-36d25ed8ece1.png)
