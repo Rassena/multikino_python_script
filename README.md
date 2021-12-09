@@ -2,6 +2,7 @@
 
 ## [Planning](P0_planning)
 First draft of a database. File [multikino_database.vpp](P0_planning/multikino_database.vpp) contains class diagram.
+
 ![image](https://user-images.githubusercontent.com/61067969/143085033-d5442ea3-0b05-49d4-a622-153d75e92d6c.png)
 
 ## [Initializing database](P1_initializing_database)
@@ -36,6 +37,7 @@ while planing the interface. In the comment of each query there are numbers rela
 in the [interface file](P2_queries_and_interfaces/Interfejs.pdf).
 
 ## [Explain & indexes](P3_explain_and_indexes)
+File [creating_indexes](P3_explain_and_indexes/creating_indexes.sql) contains the script creating Indexes for SQL tables according to the need stemming from the created [queries](P2_queries_and_interfaces/queries.sql).
 
 ## [Modification](P4_mod)
 
