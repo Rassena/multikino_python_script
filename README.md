@@ -1,8 +1,12 @@
-# PROJEKT RELACYJNEJ BAZY DANYCH
+# PROJEKT RELACYJNEJ BAZY DANYCH - PROJECT OF THE RELATIVE DATABASE
 Kamila Sproska, Michał Gadziński, Dominik Stachowiak
 
+This project contains all the steps undertaken to crate a relative database for a singular cinema facility.
+For the purposes of this exercise database was filled with random data, so that further processes (like creating queries)
+would return validatable data.
+
 ## [Planning](P0_planning)
-First draft of a database. File [multikino_database.vpp](P0_planning/multikino_database.vpp) contains class diagram.
+First draft of a database. File [multikino_database.vpp](P0_planning/multikino_database.vpp) contains class diagram, as presented below:
 
 ![image](https://user-images.githubusercontent.com/61067969/143085033-d5442ea3-0b05-49d4-a622-153d75e92d6c.png)
 
