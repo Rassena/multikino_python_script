@@ -36,9 +36,12 @@ INNER JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
 INNER JOIN ticketstate r on t.Fk_ticketState = r.Id_ticketState
 INNER JOIN movieversion mmv on seans.Fk_movieVersion = mmv.Id_movieVersion
 INNER JOIN movie m on mmv.Fk_movie = m.Id_movie
+# INNER JOIN ticket_ticketstate tt2 on r.Id_ticketState = tt2.Fk_ticketState
+
 WHERE seans.Seans_date = DATE(NOW())
 AND user.User_surname = 'Smith' # Bisarra, Roberts
-GROUP BY Id_reservation;
+GROUP BY Id_reservation
+;
 
 
 /* Query 4 (interface 14) - cena do zapłaty za rezerwację */
@@ -162,6 +165,13 @@ join seans s on r.Id_room = s.Fk_room
 WHERE Id_seans = 69
 ;
 
+/* Query 14 - stan obecy rezerwacji */
+SELECT t.Fk_seat, t2.TicketState_name
+FROM reservation
+JOIN ticket t on reservation.Id_reservation = t.Fk_reservation
+JOIN ticketstate t2 on t2.Id_ticketState = t.Fk_ticketState
+WHERE reservation.Id_reservation = 4
+;
 
 
 # EXPLAIN
