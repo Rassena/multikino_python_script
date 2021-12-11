@@ -96,7 +96,7 @@ File [creating_indexes](P3_explain_and_indexes/creating_indexes.sql) contains th
 File [f1_creating_empty_tables](P4_mod/f1_creating_empty_tables.sql) creates tables in SQL DDL 
 according to the **modified** draft.
 
-![image](https://user-images.githubusercontent.com/61067969/145451528-5adbee48-29f4-4a09-9f0a-0ef61ff6313f.png)
+![img_2.png](img_2.png)
 
 ## Other
 
