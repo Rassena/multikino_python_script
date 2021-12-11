@@ -184,3 +184,17 @@ WHERE reservation.Id_reservation = 4
 # #       ticket.Id_ticket is null and
 #       Id_seans = 69
 # ;
+
+/* Query 15 - historia stanów biletów uzytkownika dla danego filmu */
+
+SELECT tt.Fk_ticket, tt.Ticket_ticketState_date, t2.TicketState_name, m2.Movie_name
+FROM ticket_ticketstate as tt
+INNER JOIN ticket t on tt.Fk_ticket = t.Id_ticket
+INNER JOIN reservation r on t.Fk_reservation = r.Id_reservation
+INNER JOIN seans s on r.Fk_seans = s.Id_seans
+INNER JOIN movieversion m on s.Fk_movieVersion = m.Id_movieVersion
+INNER JOIN movie m2 on m.Fk_movie = m2.Id_movie
+INNER JOIN user u on r.Fk_user = u.Id_user
+INNER JOIN ticketstate t2 on t.Fk_ticketState = t2.Id_ticketState
+WHERE Id_user = 24352 and m2.Movie_name = 'Movie name 3Z7Zi'
+ORDER BY tt.Ticket_ticketState_date;
