@@ -2,9 +2,9 @@ import datetime
 
 import names
 
-from ..P1_initializing_database.f2_0_constants import *
-from ..P1_initializing_database.f2_1_supporting_methods import *
-from ..P1_initializing_database.f2_2_parent_classes import ObjectWithCounter, AddableToDatabase
+from f2_0_constants import *
+from f2_1_supporting_methods import *
+from f2_2_parent_classes import ObjectWithCounter, AddableToDatabase
 
 
 class Users(ObjectWithCounter, AddableToDatabase):
@@ -18,7 +18,7 @@ class Users(ObjectWithCounter, AddableToDatabase):
         self.user_email: str = f'{random_string_generator(random.randrange(6, 12))}@gmail.com'
         self.user_password: str = random_string_generator(random.randrange(8, 12))
         self.user_birth: date = random_date_generator(1970, 2003)
-        self.user_privilege: set[str] = set(random.choices(PRIVILAGES, k=random.randrange(2)))
+        self.user_privilege: set[str] = set(random.choices(PRIVILAGES, k=random.randrange(1, 2)))
 
 
 class Artists(ObjectWithCounter, AddableToDatabase):
@@ -40,11 +40,11 @@ class Dimensions(AddableToDatabase):
 
 
 class Movies(ObjectWithCounter, AddableToDatabase):
-    ALL_TAGS_TRANSLATION_DIMENSION: set[tuple[str, str, float]] = set([
-        (translation, dimension, random.choice(PRICES)) for translation in TRANSLATIONS for dimension in DIMENSIONS
-    ])
+    # ALL_TAGS_TRANSLATION_DIMENSION: set[tuple[str, str, float]] = set([
+    #     (translation, dimension, random.choice(PRICES)) for translation in TRANSLATIONS for dimension in DIMENSIONS
+    # ])
 
-    def __init__(self):
+    def __init__(self, tuples_trans_dim_price):
         self.id_movie: int = Movies.next()
         self.movie_name: str = f'Movie name {random_string_generator(5)}'
         self.movie_description: str = random_string_generator(100)
@@ -52,9 +52,9 @@ class Movies(ObjectWithCounter, AddableToDatabase):
         self.movie_duration: int = random.randrange(90, 200) #:Movie_duration > 0)
         self.age_restriction: str = random.choice(AGE_RESTRICTIONS)
         self.poster_path: str = f'C:\\posters\\{self.id_movie}\\{random_string_generator(4)}.tiff'
-        self.tags_country: set[str] = set(random.choices(COUNTRIES, k=random.randrange(3)))
+        self.tags_country: set[str] = set(random.choices(COUNTRIES, k=random.randrange(1, 3)))
         self.tags_translation_dimension_basePrice: set[tuple[str, str, float]] = \
-            set(random.choices(list(self.ALL_TAGS_TRANSLATION_DIMENSION), k=random.randrange(6)))
+            set(random.choices(list(tuples_trans_dim_price), k=random.randrange(1, 6)))
 
 
 class Castings(ObjectWithCounter, AddableToDatabase):
@@ -94,11 +94,11 @@ class Rooms(ObjectWithCounter, AddableToDatabase):
 
 
 class Discounts(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, discount_name: str, discount_price: float, dimension: Dimensions):
+    def __init__(self, discount_name: str, discount_percentage: float, dimension: Dimensions):
         self.discount_name: str = discount_name
         self.dimension_name: str = dimension.dimension_name
         self.dimension_basePrice: float = dimension.dimension_basePrice
-        self.discount_price: float = discount_price
+        self.discount_price: float = self.dimension_basePrice * (1 - discount_percentage)
 
 
 class Showings(ObjectWithCounter, AddableToDatabase):
@@ -117,9 +117,10 @@ class Showings(ObjectWithCounter, AddableToDatabase):
 
         self.dimension_name: str = trans_dimension_base_price[1]
         self.dimension_basePrice: float = trans_dimension_base_price[2]
-        self.set_discountName_price: set[tuple[str, float]] = set([(discount.discount_name, discount.discount_price)
-            for discount in list_all_discounts if discount.dimension_name == self.dimension_name
-        ])
+        self.set_discountName_price: set[tuple[str, float]] = \
+            set([(discount.discount_name, discount.discount_price)
+                 for discount in list_all_discounts if discount.dimension_name == self.dimension_name
+                 ])
 
         self.room_name: str = room.room_name
         self.room_set_row_seatNr: set[tuple[str, int]] = room.room_set_row_seatNr
