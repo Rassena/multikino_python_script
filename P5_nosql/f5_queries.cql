@@ -1,3 +1,6 @@
+select * from users where user_privilege contains 'Pracownik' and user_privilege contains 'Klient' ALLOW FILTERING;
+
+
 /* Query1  wszystkie seanse dzisiaj */
 SELECT movie_title, dimension_name, movie_translation, showing_date, showing_time FROM tickets WHERE showing_date='2016-03-15';
 

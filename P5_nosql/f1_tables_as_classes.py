@@ -18,7 +18,7 @@ class Users(ObjectWithCounter, AddableToDatabase):
         self.user_email: str = f'{self.user_surname}.{self.user_name}.{random_string_generator(random.randrange(3, 6))}@gmail.com'.lower()
         self.user_password: str = random_string_generator(random.randrange(8, 12))
         self.user_birth: date = random_date_generator(1970, 2003)
-        self.user_privilege: set[str] = set(random.choices(PRIVILAGES, k=random.randrange(1, 2)))
+        self.user_privilege: set[str] = set(random.choices(PRIVILAGES, weights=[100, 10, 1, 1, 1], k=random.randrange(1, 2)))
 
 
 class Artists(ObjectWithCounter, AddableToDatabase):
@@ -151,7 +151,7 @@ class Tickets(ObjectWithCounter, AddableToDatabase):
         self.User_id: int = user.id_user
         self.User_surname: str = user.user_surname
 
-        self.Ticket_state: str = random.choice(TICKET_STATES)
+        self.Ticket_state: str = random.choices(TICKET_STATES, weights=[3, 10, 10, 1], k=1)[0]
         self.Ticket_reservation: int = reservation_id
 
 
