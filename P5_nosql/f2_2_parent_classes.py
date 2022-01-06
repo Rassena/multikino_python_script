@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 
 
 class ObjectWithCounter:
@@ -20,7 +20,7 @@ class AddableToDatabase:
         keys = ', '.join(self.__dict__.keys())
         values = []
         for value in self.__dict__.values():
-            if type(value) is str or type(value) is date:
+            if type(value) is str or type(value) is date or type(value) is time:
                 values.append(f'\'{value}\'')
             elif type(value) is set:
                 values.append(f'{list(value)}')
@@ -30,8 +30,6 @@ class AddableToDatabase:
         return f'INSERT INTO \n{self.__class__.__name__} ({keys})\n VALUES \n({values_merged});\n'
 
     def __str__(self):
-        keys, values = '', ''
-        if len(self.__dict__) > 0:
-            keys = ', '.join(self.__dict__.keys())
-            values = ', '.join([str(value) for value in self.__dict__.values()])
-        return f'{self.__class__.__name__} ({keys}) : ({values})'
+        all_merged = '\t'.join(f'{key}: \033[94m{self.__dict__[key]}\033[0m' for key in self.__dict__.keys())
+        class_ = f'\033[96m{self.__class__.__name__.ljust(11)}\033[0m'
+        return  f'{class_} {all_merged}'

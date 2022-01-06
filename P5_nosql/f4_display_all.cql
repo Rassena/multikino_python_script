@@ -1,3 +1,9 @@
+/*
+docker exec -it cassandra_multikino bash
+cqlsh
+*/
+use "multikino";
+
 Select * from artists;
 Select * from castings;
 Select * from users;

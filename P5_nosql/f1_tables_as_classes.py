@@ -15,7 +15,7 @@ class Users(ObjectWithCounter, AddableToDatabase):
         gender_id = random.choice([False, True])
         self.user_name: str = names.get_first_name(gender=self.genders[gender_id])
         self.user_surname: str = names.get_last_name()
-        self.user_email: str = f'{random_string_generator(random.randrange(6, 12))}@gmail.com'
+        self.user_email: str = f'{self.user_surname}.{self.user_name}.{random_string_generator(random.randrange(3, 6))}@gmail.com'.lower()
         self.user_password: str = random_string_generator(random.randrange(8, 12))
         self.user_birth: date = random_date_generator(1970, 2003)
         self.user_privilege: set[str] = set(random.choices(PRIVILAGES, k=random.randrange(1, 2)))
@@ -44,9 +44,10 @@ class Movies(ObjectWithCounter, AddableToDatabase):
     #     (translation, dimension, random.choice(PRICES)) for translation in TRANSLATIONS for dimension in DIMENSIONS
     # ])
 
-    def __init__(self, tuples_trans_dim_price):
+    def __init__(self, title, tuples_trans_dim_price):
         self.id_movie: int = Movies.next()
-        self.movie_name: str = f'Movie name {random_string_generator(5)}'
+        self.movie_title: str = title
+            # f'Movie name {random_string_generator(5)}'
         self.movie_description: str = random_string_generator(100)
         self.movie_premiere: date = random_date_generator(2000, 2022)
         self.movie_duration: int = random.randrange(90, 200) #:Movie_duration > 0)
@@ -62,15 +63,15 @@ class Castings(ObjectWithCounter, AddableToDatabase):
         self.artist_id: int = Castings.next()
         self.artist_name: str = artist.artist_name
         self.artist_surname: str = artist.artist_surname
-        self.role_name: str = random.choice(ROLES)
+        self.role_name: str = random.choices(ROLES, weights=[10, 1, 1], k=1)[0]
         self.movie_id: int = movie.id_movie
-        self.movie_name: str = movie.movie_name
+        self.movie_title: str = movie.movie_title
 
 
 class Ratings(ObjectWithCounter, AddableToDatabase):
     def __init__(self, movie: Movies, user: Users):
         self.movie_id: int = movie.id_movie
-        self.movie_name: str = movie.movie_name
+        self.movie_title: str = movie.movie_title
         self.user_id: int = user.id_user
         self.rating_value: int = random.randint(1, 10) # 1 <= Rating_rate <= 10)
 
@@ -78,7 +79,7 @@ class Ratings(ObjectWithCounter, AddableToDatabase):
 class Genres(ObjectWithCounter, AddableToDatabase):
     def __init__(self, movie: Movies, genre_name: str):
         self.Movie_id: int = movie.id_movie
-        self.Movie_name: str = movie.movie_name
+        self.Movie_title: str = movie.movie_title
         self.Genre_name: str = genre_name
 
 
@@ -109,7 +110,7 @@ class Showings(ObjectWithCounter, AddableToDatabase):
         self.showing_time: time = random_time_generator()
 
         self.movie_id: int = movie.id_movie
-        self.movie_title: str = movie.movie_name
+        self.movie_title: str = movie.movie_title
 
         trans_dimension_base_price = random.choice(list(movie.tags_translation_dimension_basePrice))
         self.movie_translation: str = trans_dimension_base_price[0]

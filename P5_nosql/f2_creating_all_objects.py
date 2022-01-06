@@ -17,9 +17,9 @@ class AllMultikinoEntities:
         discounts_inx, showings_inx, tickets_inx, ticketstates_inx \
             = range(NUMBER_OF_ALL_ENTITIES_noSQL)
 
-        tab_with_all_tabs[artists_inx] = [Artists() for i in range(10)]
+        tab_with_all_tabs[artists_inx] = [Artists() for i in range(ARTIST_NUM)]
         print_created(Artists)
-        tab_with_all_tabs[users_inx] = [Users() for i in range(10)]
+        tab_with_all_tabs[users_inx] = [Users() for i in range(USER_NUM)]
         print_created(Users)
         tab_with_all_tabs[rooms_inx] = [Rooms(sign) for sign in ROOMS]
         print_created(Rooms)
@@ -29,7 +29,11 @@ class AllMultikinoEntities:
             (translation, dimension.dimension_name, dimension.dimension_basePrice)
             for dimension in tab_with_all_tabs[dimensions_inx] for translation in TRANSLATIONS
         ])
-        tab_with_all_tabs[movies_inx] = [Movies(tuples_trans_dim_price) for i in range(10)]
+        titles = []
+        with open('movie_titles.txt', 'r', encoding='utf-8') as f:
+            for title in f.readlines():
+                titles.append(title.replace('\n', ''))
+        tab_with_all_tabs[movies_inx] = [Movies(title, tuples_trans_dim_price) for title in titles]
         print_created(Movies)
         tab_with_all_tabs[castings_inx] = [Castings(random.choice(tab_with_all_tabs[artists_inx]), movie)
                                            for movie in tab_with_all_tabs[movies_inx]
@@ -47,12 +51,15 @@ class AllMultikinoEntities:
                                             for discount in DISCOUNTS
                                             for dimension in tab_with_all_tabs[dimensions_inx]]
         print_created(Discounts)
-        # tab_with_all_tabs[showings_inx] = [Showings(movie, random.choice(tab_with_all_tabs[rooms_inx]),
-        #                                             tab_with_all_tabs[discounts_inx])
-        #                                    for movie in tab_with_all_tabs[movies_inx]]
-        # print_created(Showings)
-        # tab_with_all_tabs[ticketstates_inx] = [Tickets()]
-        # print_created(Tickets)
+        tab_with_all_tabs[showings_inx] = [Showings(movie, random.choice(tab_with_all_tabs[rooms_inx]),
+                                                    tab_with_all_tabs[discounts_inx])
+                                           for movie in tab_with_all_tabs[movies_inx]]
+        print_created(Showings)
+        # reservations = [user for user in tab_with_all_tabs[users_inx]]
+        tab_with_all_tabs[ticketstates_inx] = [Tickets(showing, random.choice(tab_with_all_tabs[users_inx]), row_seat[0], row_seat[1], 0)
+                                               for showing in tab_with_all_tabs[showings_inx]
+                                                for row_seat in random.choices(list(showing.room_set_row_seatNr), k=random.randrange(1, 100))]
+        print_created(Tickets)
 
         self.all_entities: list[AddableToDatabase] = []
         self.tab_with_all_tabs = tab_with_all_tabs
