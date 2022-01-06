@@ -24,8 +24,6 @@ class AddableToDatabase:
                 values.append(f'\'{value}\'')
             elif type(value) is set:
                 values.append(f'{list(value)}')
-            elif type(value) is bool:
-                values.append(f'{value}'.lower())
             else:
                 values.append(f'{value}')
         values_merged = ', '.join(values).replace('[', '{').replace(']', '}')

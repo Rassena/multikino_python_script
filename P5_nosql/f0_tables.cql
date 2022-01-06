@@ -1,8 +1,15 @@
-/*
-docker exec -it cassandra_multikino bash
-cqlsh
-use "multikino";
-*/
+Drop table artists;
+Drop table castings;
+Drop table users;
+Drop table movies;
+Drop table ratings;
+Drop table dimensions;
+Drop table genres;
+Drop table rooms;
+Drop table showings;
+Drop table tickets;
+Drop table ticketStates;
+Drop table discounts;
 
 CREATE TABLE artists (
     Id_artist int,
@@ -39,7 +46,7 @@ CREATE TABLE movies (
     Movie_name text,
     Movie_description text,
     Movie_premiere date,
-    Movie_duration duration,
+    Movie_duration int,
     Age_restriction text,
     Poster_path text,
     Tags_country set<text>,
