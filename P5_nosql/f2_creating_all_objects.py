@@ -56,10 +56,15 @@ class AllMultikinoEntities:
                                            for movie in tab_with_all_tabs[movies_inx]]
         print_created(Showings)
         # reservations = [user for user in tab_with_all_tabs[users_inx]]
-        tab_with_all_tabs[ticketstates_inx] = [Tickets(showing, random.choice(tab_with_all_tabs[users_inx]), row_seat[0], row_seat[1], 0)
+        tab_with_all_tabs[tickets_inx] = [Tickets(showing, random.choice(tab_with_all_tabs[users_inx]), row_seat[0], row_seat[1], 0)
                                                for showing in tab_with_all_tabs[showings_inx]
                                                 for row_seat in random.choices(list(showing.room_set_row_seatNr), k=random.randrange(1, 100))]
         print_created(Tickets)
+
+        tab_with_all_tabs[ticketstates_inx] = [TicketStates(ticket)
+                                                for ticket in tab_with_all_tabs[tickets_inx]
+                                               for i in range(random.randrange(3))]
+        print_created(TicketStates)
 
         self.all_entities: list[AddableToDatabase] = []
         self.tab_with_all_tabs = tab_with_all_tabs

@@ -1,6 +1,7 @@
 import datetime
 
 import names
+from typing import Set, Tuple, List
 
 from f2_0_constants import *
 from f2_1_supporting_methods import *
@@ -103,7 +104,7 @@ class Discounts(ObjectWithCounter, AddableToDatabase):
 
 
 class Showings(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, movie: Movies, room: Rooms, list_all_discounts: list[Discounts]):
+    def __init__(self, movie: Movies, room: Rooms, list_all_discounts: List[Discounts]): # TUTAJ
         self.id_showing: int = Showings.next()
 
         self.showing_date: date = random_date_generator(2021, 2022)
@@ -117,14 +118,14 @@ class Showings(ObjectWithCounter, AddableToDatabase):
         self.movie_duration: int = movie.movie_duration
 
         self.dimension_name: str = trans_dimension_base_price[1]
-        self.dimension_basePrice: float = trans_dimension_base_price[2]
-        self.set_discountName_price: set[tuple[str, float]] = \
+        self.dimension_basePrice: float = trans_dimension_base_price[2] # TUTAJ NIZEJ
+        self.set_discountName_price: Set[Tuple[str, float]] = \
             set([(discount.discount_name, discount.discount_price)
                  for discount in list_all_discounts if discount.dimension_name == self.dimension_name
                  ])
 
         self.room_name: str = room.room_name
-        self.room_set_row_seatNr: set[tuple[str, int]] = room.room_set_row_seatNr
+        self.room_set_row_seatNr: Set[Tuple[str, int]] = room.room_set_row_seatNr # TUTAJ
 
 
 class Tickets(ObjectWithCounter, AddableToDatabase):
@@ -153,6 +154,25 @@ class Tickets(ObjectWithCounter, AddableToDatabase):
 
         self.Ticket_state: str = random.choices(TICKET_STATES, weights=[3, 10, 10, 1], k=1)[0]
         self.Ticket_reservation: int = reservation_id
+
+
+class TicketStates(ObjectWithCounter, AddableToDatabase):
+    def __init__(self, ticket: Tickets):
+        self.TicketState_timestamp = f'{random_date_generator(2021, 2022)} {random_time_generator()}+0000'
+        self.TicketState_name = random.choices(TICKET_STATES, weights=[3, 10, 10, 1], k=1)[0]
+
+        self.Ticket_id: int = ticket.id_ticket
+        self.Room_row: str = ticket.Room_row
+        self.Room_seat: int = ticket.Room_seat
+
+        self.Showing_id: int = ticket.Showing_id
+        self.Showing_date: date = ticket.Showing_date
+        self.Showing_time: time = ticket.Showing_time
+
+        self.Movie_title: str = ticket.Movie_title
+        self.User_id: int = ticket.User_id
+        self.User_surname: str = ticket.User_surname
+        self.Ticket_reservation: int = ticket.Ticket_reservation
 
 
 # class TicketStates(ObjectWithCounter, AddableToDatabase):

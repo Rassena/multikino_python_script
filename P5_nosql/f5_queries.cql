@@ -60,4 +60,4 @@ Select user_surname as user, movie_title as title,Showing_date as date,showing_t
 
 select * from tickets where showing_date='2016-03-15' group by ticket_reservation allow filtering;
 
-select * from ticketstates where ticket_id=4 limit 1 allow filtering;
+select * from ticketstates where ticket_id=19 limit 1 allow filtering;
