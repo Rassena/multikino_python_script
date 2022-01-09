@@ -103,7 +103,7 @@ class Discounts(ObjectWithCounter, AddableToDatabase):
 
 
 class Showings(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, movie: Movies, room: Rooms, list_all_discounts: list[Discounts]): # TUTAJ
+    def __init__(self, movie: Movies, room: Rooms, list_all_discounts: list[Discounts]):
         self.id_showing: int = Showings.next()
 
         self.showing_date: date = random_date_generator(2021, 2022)
@@ -117,14 +117,14 @@ class Showings(ObjectWithCounter, AddableToDatabase):
         self.movie_duration: int = movie.movie_duration
 
         self.dimension_name: str = trans_dimension_base_price[1]
-        self.dimension_basePrice: float = trans_dimension_base_price[2] # TUTAJ NIZEJ
+        self.dimension_basePrice: float = trans_dimension_base_price[2]
         self.set_discountName_price: set[tuple[str, float]] = \
             set([(discount.discount_name, discount.discount_price)
                  for discount in list_all_discounts if discount.dimension_name == self.dimension_name
                  ])
 
         self.room_name: str = room.room_name
-        self.room_set_row_seatNr: set[tuple[str, int]] = room.room_set_row_seatNr # TUTAJ
+        self.room_set_row_seatNr: set[tuple[str, int]] = room.room_set_row_seatNr
 
 
 class Tickets(ObjectWithCounter, AddableToDatabase):
