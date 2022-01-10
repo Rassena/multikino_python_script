@@ -14,7 +14,7 @@ class AllMultikinoEntities:
         tab_with_all_tabs: list[list[AddableToDatabase]] = [[] for i in range(NUMBER_OF_ALL_ENTITIES_noSQL)]
         users_inx, artists_inx, dimensions_inx, movies_inx, \
         castings_inx, ratings_inx, genres_inx, rooms_inx, \
-        discounts_inx, showings_inx, tickets_inx, ticketstates_inx \
+        discounts_inx, showings_inx, tickets_inx, ticketstates_inx, reservations_inx \
             = range(NUMBER_OF_ALL_ENTITIES_noSQL)
 
         tab_with_all_tabs[artists_inx] = [Artists() for i in range(ARTIST_NUM)]
@@ -61,9 +61,9 @@ class AllMultikinoEntities:
                                                 for row_seat in random.choices(list(showing.room_set_row_seatNr), k=random.randrange(1, 100))]
         print_created(Tickets)
 
-        tab_with_all_tabs[ticketstates_inx] = [TicketStates(ticket)
+        tab_with_all_tabs[ticketstates_inx] = [TicketStates(ticket, ticketState_name)
                                                 for ticket in tab_with_all_tabs[tickets_inx]
-                                               for i in range(random.randrange(3))]
+                                               for ticketState_name in random.sample(TICKET_STATES, random.randrange(3))]
         print_created(TicketStates)
 
         self.all_entities: list[AddableToDatabase] = []

@@ -160,3 +160,23 @@ CREATE TABLE ticketStates (
     PRIMARY KEY ((Showing_date, Showing_id), TicketState_timestamp, Ticket_reservation, Ticket_id)
 )
 WITH CLUSTERING ORDER BY (TicketState_timestamp DESC);
+
+CREATE TABLE reservations (
+    Id_reservation int,
+
+    User_id int,
+    User_surname text,
+
+    Showing_id int,
+    Showing_date date,
+    Showing_time time,
+
+    Movie_id int,
+    Movie_title text,
+    Movie_translation text,
+
+    Room_name text,
+    Map_ticket_row_seatNr map<int, tuple<text, int>>,
+
+    PRIMARY KEY (User_id, Showing_date, Showing_time, Room_name)
+)

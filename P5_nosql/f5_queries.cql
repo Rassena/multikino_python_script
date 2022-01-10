@@ -56,7 +56,7 @@ Select showing_time as time,movie_title as title, room_name as room, dimension_n
 
 Select * from showings where showing_date='2016-03-16' and Showing_time>'15:30:00' allow filtering;
 
-Select user_surname as user, movie_title as title,Showing_date as date,showing_time as time, room_name as room, room_row as row, room_seat as seat, dimension_name as dimension, movie_translation as translation, ticket_price as price, discount_name as discount, Ticket_state as state, ticket_reservation as reservation from tickets;
+Select user_surname as user, movie_title as title,Showing_date as date,showing_time as time, room_name as room, room_row as row, room_seat as seat, dimension_name as dimension, movie_translation as translation, discount_price as price, discount_name as discount, Ticket_state as state, ticket_reservation as reservation from tickets;
 
 select * from tickets where showing_date='2016-03-15' group by ticket_reservation allow filtering;
 

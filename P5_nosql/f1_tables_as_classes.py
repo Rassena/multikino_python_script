@@ -156,9 +156,9 @@ class Tickets(ObjectWithCounter, AddableToDatabase):
 
 
 class TicketStates(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, ticket: Tickets):
+    def __init__(self, ticket: Tickets, ticketState_name):
         self.TicketState_timestamp = f'{random_date_generator(2021, 2022)} {random_time_generator()}+0000'
-        self.TicketState_name = random.choices(TICKET_STATES, weights=[3, 10, 10, 1], k=1)[0]
+        self.TicketState_name = ticketState_name #random.choices(TICKET_STATES, weights=[3, 10, 10, 1], k=1)[0]
 
         self.Ticket_id: int = ticket.id_ticket
         self.Room_row: str = ticket.Room_row
