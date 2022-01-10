@@ -160,24 +160,24 @@ class Tickets(ObjectWithCounter, AddableToDatabase):
         self.Showing_date: date = reservation.Showing_date
         self.Showing_time: time = reservation.Showing_time
 
-        self.Movie_title: str = showing.movie_title
-        self.Movie_translation: str = showing.movie_translation
+        self.Movie_title: str = reservation.Movie_title
+        self.Movie_translation: str = reservation.Movie_translation
 
-        discount = random.choice(list(showing.set_discountName_price))
+        discount = random.choice(list(reservation.Set_discountName_price))
         self.Discount_name: str = discount[0]
         self.Discount_price: float = discount[1]
 
-        self.Dimension_name: str = showing.dimension_name
+        self.Dimension_name: str = reservation.dimension_name
 
-        self.Room_name: str = showing.room_name
+        self.Room_name: str = reservation.Room_name
         self.Room_row: str = row
         self.Room_seat: int = seat
 
-        self.User_id: int = user.id_user
-        self.User_surname: str = user.user_surname
+        self.User_id: int = reservation.User_id
+        self.User_surname: str = reservation.User_surname
 
         self.Ticket_state: str = random.choices(TICKET_STATES, weights=[3, 10, 10, 1], k=1)[0]
-        self.Ticket_reservation: int = reservation_id
+        self.Ticket_reservation: int = reservation.Id_reservation
 
 
 class TicketStates(ObjectWithCounter, AddableToDatabase):
@@ -189,7 +189,7 @@ class TicketStates(ObjectWithCounter, AddableToDatabase):
         self.Room_row: str = ticket.Room_row
         self.Room_seat: int = ticket.Room_seat
 
-        self.Showing_id: int = ticket.Showing_id
+        self.reservation_id: int = ticket.Showing_id
         self.Showing_date: date = ticket.Showing_date
         self.Showing_time: time = ticket.Showing_time
 
