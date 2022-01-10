@@ -55,6 +55,13 @@ class AllMultikinoEntities:
                                                     tab_with_all_tabs[discounts_inx])
                                            for movie in tab_with_all_tabs[movies_inx]]
         print_created(Showings)
+
+        tab_with_all_tabs[reservations_inx] = [Reservations(showing, user)
+                                               for showing in tab_with_all_tabs[showings_inx]
+                                               for user in tab_with_all_tabs[users_inx]
+                                               if range(random.randrange(1))]
+        print_created(reservations_inx)
+
         # reservations = [user for user in tab_with_all_tabs[users_inx]]
         tab_with_all_tabs[tickets_inx] = [Tickets(showing, random.choice(tab_with_all_tabs[users_inx]), row_seat[0], row_seat[1], 0)
                                                for showing in tab_with_all_tabs[showings_inx]

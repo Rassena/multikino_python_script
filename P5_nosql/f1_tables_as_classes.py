@@ -127,13 +127,38 @@ class Showings(ObjectWithCounter, AddableToDatabase):
         self.room_set_row_seatNr: set[tuple[str, int]] = room.room_set_row_seatNr
 
 
-class Tickets(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, showing: Showings, user: Users, row: str, seat: int, reservation_id: int):
-        self.id_ticket: int = Tickets.next()
+class Reservations(ObjectWithCounter, AddableToDatabase):
+    def __init__(self, showing: Showings, user: Users):
+        self.Id_reservation: int = Reservations.next()
 
         self.Showing_id: int = showing.id_showing
         self.Showing_date: date = showing.showing_date
         self.Showing_time: time = showing.showing_time
+
+        self.Movie_id: int = showing.movie_id
+        self.Movie_title: str = showing.movie_title
+        self.Movie_translation: str = showing.movie_translation
+        self.Set_discountName_price: set[tuple[str, float]] = showing.set_discountName_price
+
+        self.User_id: int = user.id_user
+        self.User_surname: str = user.user_surname
+        self.dimension_name: str = showing.dimension_name
+
+        self.Room_name: str = showing.room_name
+        self.Map_ticket_row_seatNr: map[int: tuple[str, int]] = {}
+
+    def update_tickets(self, ticket_list):
+        for ticket in ticket_list:
+            self.Map_ticket_row_seatNr.update({ticket.id_ticket: (ticket.Room_row, ticket.Room_seat)})
+
+
+class Tickets(ObjectWithCounter, AddableToDatabase):
+    def __init__(self, reservation: Reservations, row: str, seat: int):
+        self.id_ticket: int = Tickets.next()
+
+        self.Showing_id: int = reservation.Showing_id
+        self.Showing_date: date = reservation.Showing_date
+        self.Showing_time: time = reservation.Showing_time
 
         self.Movie_title: str = showing.movie_title
         self.Movie_translation: str = showing.movie_translation
@@ -172,35 +197,3 @@ class TicketStates(ObjectWithCounter, AddableToDatabase):
         self.User_id: int = ticket.User_id
         self.User_surname: str = ticket.User_surname
         self.Ticket_reservation: int = ticket.Ticket_reservation
-
-
-# class TicketStates(ObjectWithCounter, AddableToDatabase):
-#     def __init__(self, ticket: Tickets):
-#         self.ticketState_timestamp: datetime.datetime = datetime.now()
-#         self.ticketState_name: str = ticket.Ticket_state
-#
-#         self.ticket_id: int = ticket.id_ticket
-#         self.Room_row: str = row
-#         self.Room_seat: int = seat
-#
-#         self.Showing_id: int = showing.id_showing
-#         self.Showing_date: date = showing.showing_date
-#         self.Showing_time: time = showing.showing_time
-#
-#         self.Movie_title: str = showing.movie_title
-#         self.Movie_translation: str = showing.movie_translation
-#
-#         discount = random.choice(list(showing.set_discountName_price))
-#         self.Discount_name: str = discount[0]
-#         self.Discount_price: float = discount[1]
-#
-#         self.Dimension_name: str = showing.dimension_name
-#
-#         self.Room_name: str = showing.room_name
-#
-#
-#         self.User_id: int = user.id_user
-#         self.User_surname: str = user.user_surname
-#
-#         self.Ticket_state: str = random.choice(TICKET_STATES)
-#         self.Ticket_reservation: int = reservation_id
