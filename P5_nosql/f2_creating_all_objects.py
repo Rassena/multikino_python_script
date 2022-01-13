@@ -60,13 +60,12 @@ class AllMultikinoEntities:
                                                for showing in tab_with_all_tabs[showings_inx]
                                                for user in tab_with_all_tabs[users_inx]
                                                if range(random.randrange(1))]
-        print_created(reservations_inx)
+        print_created(Reservations)
 
         # reservations = [user for user in tab_with_all_tabs[users_inx]]
-        tab_with_all_tabs[tickets_inx] = [Tickets(reservation, row_seat[0], row_seat[1]) # todo: row seat nr
-                                               for reservation in tab_with_all_tabs[showings_inx]
-                                                for i in range(random.randrange(4))
-                                                for row_seat in random.choices(list(), k=random.randrange(1, 100))]
+        tab_with_all_tabs[tickets_inx] = [Tickets(reservation, row_seat[0], row_seat[1])
+                                               for reservation in tab_with_all_tabs[reservations_inx]
+                                                for row_seat in random.choices(tab_with_all_tabs[rooms_inx], k=random.randrange(1, 100))]
         print_created(Tickets)
 
         tab_with_all_tabs[ticketstates_inx] = [TicketStates(ticket, ticketState_name)
