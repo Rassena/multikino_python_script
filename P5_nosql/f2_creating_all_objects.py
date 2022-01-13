@@ -2,7 +2,7 @@ import random
 
 from f1_tables_as_classes import *
 
-NUMBER_OF_ALL_ENTITIES_noSQL = 12
+NUMBER_OF_ALL_ENTITIES_noSQL = 13
 
 
 def print_created(class_):
