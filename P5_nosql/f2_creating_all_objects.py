@@ -17,6 +17,7 @@ class AllMultikinoEntities:
         discounts_inx, showings_inx, tickets_inx, ticketstates_inx, reservations_inx \
             = range(NUMBER_OF_ALL_ENTITIES_noSQL)
 
+
         tab_with_all_tabs[artists_inx] = [Artists() for i in range(ARTIST_NUM)]
         print_created(Artists)
         tab_with_all_tabs[users_inx] = [Users() for i in range(USER_NUM)]
@@ -53,28 +54,27 @@ class AllMultikinoEntities:
         print_created(Discounts)
         tab_with_all_tabs[showings_inx] = [Showings(movie, random.choice(tab_with_all_tabs[rooms_inx]),
                                                     tab_with_all_tabs[discounts_inx])
-                                           for movie in tab_with_all_tabs[movies_inx]]
+                                           for movie in tab_with_all_tabs[movies_inx]
+                                           for _ in range(random.randrange(5, 15))]
         print_created(Showings)
 
-        tab_with_all_tabs[reservations_inx] = [Reservations(showing, user)
-                                               for showing in tab_with_all_tabs[showings_inx]
-                                               for user in tab_with_all_tabs[users_inx]
-                                               if range(random.randrange(1))]
-        print_created(Reservations)
+        for showing in tab_with_all_tabs[showings_inx]:
+            for user in random.choices(tab_with_all_tabs[users_inx], k=random.randrange(0, 15)):
+                reservation = Reservations(showing, user)
+                ticket_list: list = []
+                for row_seat in random.choices(tuple(showing.room_set_row_seatNr), k=random.randrange(1, 5)):
+                    ticket_list += [Tickets(reservation, row_seat[0], row_seat[1])]
+                reservation.update_tickets(ticket_list)
+                tab_with_all_tabs[reservations_inx] += [reservation]
+                tab_with_all_tabs[tickets_inx] += ticket_list
 
-        # reservations = [user for user in tab_with_all_tabs[users_inx]]
-        tab_with_all_tabs[tickets_inx] = [Tickets(reservation, row_seat[0], row_seat[1])
-                                               for reservation in tab_with_all_tabs[reservations_inx]
-                                                for row_seat in random.choices(tab_with_all_tabs[rooms_inx], k=random.randrange(1, 100))]
+        print_created(Reservations)
         print_created(Tickets)
 
         tab_with_all_tabs[ticketstates_inx] = [TicketStates(ticket, ticketState_name)
                                                 for ticket in tab_with_all_tabs[tickets_inx]
-                                               for ticketState_name in random.sample(TICKET_STATES, random.randrange(3))]
+                                               for ticketState_name in random.sample(TICKET_STATES, random.randrange(1, 4))]
         print_created(TicketStates)
-
-        # Reservations
-        # map_ticket_row_seatNr <= (ticket_id <= (ticket_users==, showing==): <ticket.Room_row, ticket.Room_seat>)
 
 
         self.all_entities: list[AddableToDatabase] = []
