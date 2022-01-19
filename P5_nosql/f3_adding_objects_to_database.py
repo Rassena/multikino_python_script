@@ -1,7 +1,8 @@
 import datetime
+import os
+import threading
 
-import cassandra
-from cassandra.cluster import Cluster, ResponseFuture, ResultSet
+from cassandra.cluster import Cluster, ResultSet
 from f2_creating_all_objects import AllMultikinoEntities
 from f1_tables_as_classes import AddableToDatabase
 
@@ -15,8 +16,8 @@ def print_heading(message):
 
 
 class Connection:
-    def __init__(self):
-        print_heading('INITIALIZING CONNECTION WITH DATABASE')
+    def __init__(self, thread_name: str=""):
+        print_heading(f'{thread_name} INITIALIZING CONNECTION WITH DATABASE')
         cluster = Cluster()
         self.__session = cluster.connect('multikino', wait_for_all_pools=True)
         self.__session.execute('USE multikino')
@@ -52,8 +53,35 @@ class Connection:
             except Exception as e:
                 print_error(e.__str__())
 
+exitFlag = 0
+class myThread (threading.Thread):
+    def __init__(self, threadID, name, part_of_table):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.part_of_table = part_of_table
+        self.current = 0
+        self.errors = 0
+        self.conn: Connection
+    def run(self):
+        self.conn = Connection(self.name)
+        self.add_to_database()
+        print("Exiting " + self.name)
+
+    def add_to_database(self):
+        for element in self.part_of_table:
+            res = self.conn.add_entity(element)
+            if res is None:
+                self.current += 1
+            else:
+                self.errors += 1
+                print_error(f'{self.name}: ERROR for {element.__class__.__name__}:\t{res}')
+                # print(element.sql_addable)
+            if res is None and (self.current % 1000 == 0):
+                print(f'{self.name}: {self.current:05}: {element}')
 
 if __name__ == "__main__":
+
     start_time = datetime.datetime.now()
     conn = Connection()
     conn.init_tables('f0_tables.cql')
@@ -63,20 +91,30 @@ if __name__ == "__main__":
     all_tables = all_obj.all_entities
 
     print_heading('ADDING ALL OBJECTS:')
+
     current = 0
     errors = 0
-    for element in all_tables:
-        res = conn.add_entity(element)
-        if res is None:
-            current += 1
-        else:
-            errors += 1
-            print_error(f'ERROR for {element.__class__.__name__}:\t{res}')
-            # print(element.sql_addable)
-        if res is None and (current % 500 == 0):
-            print(f'{current:05}: {element}')
+    threads_count = os.cpu_count()
+
+    part_of_table = int(len(all_tables)/threads_count)
+
+    print(f'GENERATED:  {len(all_tables): 6} ELEMENTS')
+
+    threads: myThread = [myThread(i, f'Thread-{i}', all_tables[part_of_table*i:part_of_table*(i+1)]) for i in range(threads_count-1)]
+    threads += [myThread(threads_count-1, f'Thread-{threads_count-1}', all_tables[part_of_table*(threads_count-1):])]
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
 
     print_heading('STATS:')
+    for thread in threads:
+        current = current + thread.current
+        errors = errors + thread.errors
+        print(f'{thread.name} ADDED:  {thread.current: 6}/{len(thread.part_of_table)}')
+        print(f'{thread.name} ERRORS: {thread.errors: 6}/{len(thread.part_of_table)}')
+
     print(f'ALL ADDED:  {current: 6}/{len(all_tables)}')
     print(f'ALL ERRORS: {errors: 6}/{len(all_tables)}')
     print(f'TIME:       {(datetime.datetime.now() - start_time).seconds//60} minutes')

@@ -103,7 +103,7 @@ class Discounts(ObjectWithCounter, AddableToDatabase):
 
 
 class Showings(ObjectWithCounter, AddableToDatabase):
-    def __init__(self, movie: Movies, room: Rooms, list_all_discounts: list[Discounts]):
+    def __init__(self, movie: Movies, room: Rooms, list_all_discounts: [Discounts]):
         self.id_showing: int = Showings.next()
 
         self.showing_date: date = random_date_generator(2021, 2022)
@@ -189,7 +189,7 @@ class TicketStates(ObjectWithCounter, AddableToDatabase):
         self.Room_row: str = ticket.Room_row
         self.Room_seat: int = ticket.Room_seat
 
-        self.reservation_id: int = ticket.Showing_id
+        self.Showing_id: int = ticket.Showing_id
         self.Showing_date: date = ticket.Showing_date
         self.Showing_time: time = ticket.Showing_time
 

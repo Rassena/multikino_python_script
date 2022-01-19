@@ -10,6 +10,7 @@ Drop table showings;
 Drop table tickets;
 Drop table ticketStates;
 Drop table discounts;
+DROP table reservations;
 
 CREATE TABLE artists (
     Id_artist int,
@@ -164,9 +165,6 @@ WITH CLUSTERING ORDER BY (TicketState_timestamp DESC);
 CREATE TABLE reservations (
     Id_reservation int,
 
-    User_id int,
-    User_surname text,
-
     Showing_id int,
     Showing_date date,
     Showing_time time,
@@ -174,9 +172,14 @@ CREATE TABLE reservations (
     Movie_id int,
     Movie_title text,
     Movie_translation text,
+    set_discountName_price set<tuple<text, double>>,
+    
+    User_id int,
+    User_surname text,
+    Dimension_name text,
 
     Room_name text,
     Map_ticket_row_seatNr map<int, tuple<text, int>>,
 
     PRIMARY KEY (User_id, Showing_date, Showing_time, Room_name)
-)
+);
