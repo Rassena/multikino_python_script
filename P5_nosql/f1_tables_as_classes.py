@@ -60,7 +60,7 @@ class Movies(ObjectWithCounter, AddableToDatabase):
 
 class Castings(ObjectWithCounter, AddableToDatabase):
     def __init__(self, artist: Artists, movie: Movies):
-        self.artist_id: int = Castings.next()
+        self.artist_id: int = artist.Id_artist
         self.artist_name: str = artist.artist_name
         self.artist_surname: str = artist.artist_surname
         self.role_name: str = random.choices(ROLES, weights=[10, 1, 1], k=1)[0]
